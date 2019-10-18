@@ -24,4 +24,6 @@ hs_err_pid*
 
 #Intellij
 .idea
+.idea/
 out/
+out
