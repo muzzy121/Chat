@@ -1,6 +1,7 @@
 package com.lanmessenger;
 
-import com.lanmessenger.thread.Listenable;
+import com.lanmessenger.messages.ScreenInput;
+import com.lanmessenger.thread.ChatRoom;
 import com.lanmessenger.thread.Listener;
 
 import java.io.IOException;
@@ -15,6 +16,9 @@ public class Main {
         ServerSocket serverSocket;
         Socket socket = null;
         InputStream inputStream = null;
+        ChatRoom chatRoom = new ChatRoom();
+        ScreenInput screenInput;
+        new ScreenInput(chatRoom).run();
 
         try {
             serverSocket = new ServerSocket(PORT);
@@ -24,7 +28,9 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         new Listener(socket, inputStream).run();
+
     }
 }
 

@@ -11,7 +11,9 @@ import java.util.Map;
 
 public class ChatRoom implements Chatable {
     private List<Message> messageList = new LinkedList<>();
+    private List<Message> toSendMesseges = new LinkedList<>();
     private Map<User, Socket> userSocketMap;
+    private Socket socket;
     private List<Sendable> sendableList = new LinkedList<>();
     private boolean state = false;
 
@@ -23,11 +25,15 @@ public class ChatRoom implements Chatable {
         return this;
     }
     public void addMessage(Message message){
-        messageList.add(message);
+        toSendMesseges.add(message);
     }
+
     public void displayMessages() {
         System.out.println(Arrays.toString(messageList.toArray()));
     }
+    public List<Message> getMessageToSend(){
+            return toSendMesseges;
+        }
 
     @Override
     public void addUser(Sendable sender) {
@@ -37,6 +43,11 @@ public class ChatRoom implements Chatable {
     @Override
     public void removeUser(Sendable sender) {
         sendableList.remove(sender);
+    }
+
+    @Override
+    public void addSocket(Socket socket) {
+        this.socket = socket;
     }
 
     @Override

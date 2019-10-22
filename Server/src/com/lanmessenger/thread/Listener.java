@@ -1,6 +1,7 @@
 package com.lanmessenger.thread;
 
 import com.lanmessenger.messages.Message;
+import com.lanmessenger.messages.Messaging;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,15 +18,16 @@ public class Listener implements Runnable, Listenable {
         this.inputStream = inputStream;
     }
 
-    public Message Listen() {
+    public Messaging Listen() {
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             if (!socket.isClosed()) {
                 Object object = objectInputStream.readObject();
-
-                if (object instanceof Message) {
-                    return (Message) object;
-                }
+                System.out.println(object.getClass());
+                return (Messaging) object;
+//                if (object instanceof Message) {
+//                    return (Message) object;
+//                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,12 +43,12 @@ public class Listener implements Runnable, Listenable {
 
         while (true) {
             System.out.println("Waiting for data...");
-            Message message = Listen();
 
-            message.printMessage();
+//            Message message = Listen();
+            Messaging mess = Listen();
+
+            mess.printMessage();
 
         }
-
-
     }
 }
