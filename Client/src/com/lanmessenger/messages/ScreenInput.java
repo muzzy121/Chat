@@ -35,6 +35,8 @@ public class ScreenInput implements Runnable {
 
             Message message = new Message(content);
             chatRoom.addMessage(message);
+
+
             chatRoom.update();
 
         }

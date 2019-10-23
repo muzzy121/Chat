@@ -1,9 +1,12 @@
 package com.lanmessenger.messages;
 
+import com.lanmessenger.users.User;
+
 import java.io.Serializable;
 
 public class Command implements Messaging, Serializable {
     public String type;
+    public User user;
 
     public Command(String type) {
         this.type = type;
@@ -16,8 +19,7 @@ public class Command implements Messaging, Serializable {
 
     @Override
     public void printMessage() {
-        System.out.println("Wiadomosc klasy command");
-        System.out.println(type);
+
     }
 
     @Override
