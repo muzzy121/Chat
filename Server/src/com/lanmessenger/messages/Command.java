@@ -19,4 +19,24 @@ public class Command implements Messaging, Serializable {
         System.out.println("Wiadomosc klasy command");
         System.out.println(type);
     }
+
+    @Override
+    public boolean isRecived() {
+        return false;
+    }
+
+    @Override
+    public Message setRecived(boolean recived) {
+        return null;
+    }
+
+    @Override
+    public boolean isSended() {
+        return false;
+    }
+
+    @Override
+    public Message setSended(boolean sended) {
+        return null;
+    }
 }

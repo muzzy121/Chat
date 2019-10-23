@@ -17,8 +17,11 @@ public class Main {
         Socket socket = null;
         InputStream inputStream = null;
         ChatRoom chatRoom = new ChatRoom();
-        ScreenInput screenInput;
-        new ScreenInput(chatRoom).run();
+        //ScreenInput screenInput;
+
+
+        ScreenInput screenInput = new ScreenInput(chatRoom);
+        new Thread(screenInput).start();
 
         try {
             serverSocket = new ServerSocket(PORT);
@@ -28,8 +31,11 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        new Listener(socket, inputStream).run();
+        Listener listener = new Listener(socket, inputStream);
+        new Thread(listener).start();
+        if(socket.isConnected()){chatRoom.addSocket(socket);
+            System.out.println("Connected");
+        }
 
     }
 }

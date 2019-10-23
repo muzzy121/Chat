@@ -1,11 +1,11 @@
 package com.lanmessenger.messages;
 
 import com.lanmessenger.users.User;
-
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Message implements Serializable, Messaging{
+public class Message implements Serializable, Messaging {
     private Date date;
     private String text;
     private User user;
@@ -36,8 +36,6 @@ public class Message implements Serializable, Messaging{
         this.text = text;
     }
 
-
-
     @Override
     public void dupa() {
 
@@ -45,6 +43,7 @@ public class Message implements Serializable, Messaging{
 
     @Override
     public void printMessage() {
-
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        System.out.println(simpleDateFormat.format(this.date) + ", " + this.text);
     }
 }

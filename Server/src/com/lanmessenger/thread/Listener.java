@@ -25,9 +25,6 @@ public class Listener implements Runnable, Listenable {
                 Object object = objectInputStream.readObject();
                 System.out.println(object.getClass());
                 return (Messaging) object;
-//                if (object instanceof Message) {
-//                    return (Message) object;
-//                }
             }
         } catch (IOException e) {
             e.printStackTrace();

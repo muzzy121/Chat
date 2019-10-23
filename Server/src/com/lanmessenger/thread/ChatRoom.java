@@ -4,14 +4,13 @@ import com.lanmessenger.messages.Message;
 import com.lanmessenger.users.User;
 
 import java.net.Socket;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ChatRoom implements Chatable {
     private List<Message> messageList = new LinkedList<>();
-    private Map<User, Socket> userSocketMap;
+    private List<Message> toSendMesseges = new LinkedList<>();
+    private Map<User, Socket> userSocketMap = new HashMap<>();
+    private Socket socket;
     private List<Sendable> sendableList = new LinkedList<>();
     private boolean state = false;
 
@@ -23,11 +22,26 @@ public class ChatRoom implements Chatable {
         return this;
     }
     public void addMessage(Message message){
-        messageList.add(message);
+        getMessageToSend().add(message);
+    }
+    public List<Message> getMessageToSend(){
+        return toSendMesseges;
+    }
+    public void moveMessageToList(){
+        messageList.addAll(getMessageToSend());
+        toSendMesseges.clear();
     }
     public void displayMessages() {
         System.out.println(Arrays.toString(messageList.toArray()));
     }
+
+    public Socket getSocket() {
+        return socket;
+    }
+    public void addUserAndSocketToMap(Socket socket, User user){
+        userSocketMap.put(user,socket);
+    }
+
 
     @Override
     public void addUser(Sendable sender) {
@@ -40,8 +54,14 @@ public class ChatRoom implements Chatable {
     }
 
     @Override
+    public void addSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    @Override
     public void update() {
         for (Sendable sender : sendableList) {
+
             sender.update();
         }
     }

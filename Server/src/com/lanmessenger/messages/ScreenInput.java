@@ -25,15 +25,12 @@ public class ScreenInput implements Runnable {
         while (!end) {
             do {
                 System.out.print("Napisz: ");
-                content = scanner.next();
+                content = scanner.nextLine();
             } while (content.equals(null));
+
             Message message = new Message(content);
-            message.printMessage();
-
             chatRoom.addMessage(message);
-
-            chatRoom.displayMessages();
-
+            chatRoom.update();
         }
     }
 }

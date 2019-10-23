@@ -1,5 +1,7 @@
 package com.lanmessenger.thread;
 
+import com.lanmessenger.messages.Messaging;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -14,23 +16,28 @@ public class Listener implements Runnable, Listenable {
         this.socket = socket;
         this.inputStream = inputStream;
     }
-
-
-    @Override
-    public void run() {
+    public Messaging Listen() {
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-
-            while (true) {
-                objectInputStream.readObject();
+            if (!socket.isClosed()) {
+                Object object = objectInputStream.readObject();
+//                System.out.println(object.getClass());
+                return (Messaging) object;
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        return null;
+    }
 
+    @Override
+    public void run() {
+        while (true) {
+//            System.out.println(this.socket);
+            Messaging mess = Listen();
+            mess.printMessage();
+        }
     }
 }

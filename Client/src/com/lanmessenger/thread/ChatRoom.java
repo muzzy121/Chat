@@ -1,6 +1,7 @@
 package com.lanmessenger.thread;
 
 import com.lanmessenger.messages.Message;
+import com.lanmessenger.messages.Messaging;
 import com.lanmessenger.users.User;
 
 import java.net.Socket;
@@ -10,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ChatRoom implements Chatable {
-    private List<Message> messageList = new LinkedList<>();
-    private List<Message> toSendMesseges = new LinkedList<>();
+    private List<Messaging> messageList = new LinkedList<>();
+    private List<Messaging> toSendMesseges = new LinkedList<>();
     private Map<User, Socket> userSocketMap;
     private Socket socket;
     private List<Sendable> sendableList = new LinkedList<>();
@@ -24,24 +25,32 @@ public class ChatRoom implements Chatable {
         this.state = state;
         return this;
     }
-    public void addMessage(Message message){
+    public void addMessage(Messaging message){
         toSendMesseges.add(message);
     }
 
     public void displayMessages() {
         System.out.println(Arrays.toString(messageList.toArray()));
     }
-    public List<Message> getMessageToSend(){
+    public List<Messaging> getMessageToSend(){
             return toSendMesseges;
         }
+    public void moveMessageToList(){
+        messageList.addAll(getMessageToSend());
+        toSendMesseges.clear();
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
 
     @Override
-    public void addUser(Sendable sender) {
+    public void addObserver(Sendable sender) {
         sendableList.add(sender);
     }
 
     @Override
-    public void removeUser(Sendable sender) {
+    public void removeObserver(Sendable sender) {
         sendableList.remove(sender);
     }
 

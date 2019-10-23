@@ -8,11 +8,9 @@ import java.util.Scanner;
 
 public class ScreenInput implements Runnable {
     private boolean end = false;
-    private String content;
     private Scanner scanner = new Scanner(System.in);
     private ChatRoom chatRoom;
     private Sendable sender;
-
 
     public ScreenInput(ChatRoom chatRoom) {
         this.chatRoom = chatRoom;
@@ -21,16 +19,26 @@ public class ScreenInput implements Runnable {
 
     @Override
     public void run() {
-        chatRoom.addUser(sender);
+        String content;
+        chatRoom.addObserver(sender);
+
         while (!end) {
+
+
             do {
                 System.out.print("Napisz: ");
-                content = scanner.next();
+                content = scanner.nextLine();
             } while (content.equals(null));
+//            Command command = new Command("exit");
+//            chatRoom.addMessage(command);
+
+
             Message message = new Message(content);
             chatRoom.addMessage(message);
-            chatRoom.displayMessages();
             chatRoom.update();
+
         }
     }
+
+
 }
