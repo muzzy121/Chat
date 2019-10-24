@@ -55,7 +55,7 @@ public class ChatRoom implements Chatable {
     }
 
     @Override
-    public void addSocket(Socket socket) {
+    public void setSocket(Socket socket) {
         this.socket = socket;
     }
 

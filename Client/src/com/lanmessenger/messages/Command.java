@@ -1,20 +1,28 @@
 package com.lanmessenger.messages;
 
+import com.lanmessenger.thread.ChatRoom;
 import com.lanmessenger.users.User;
 
 import java.io.Serializable;
+import java.net.Socket;
 
-public class Command implements Messaging, Serializable {
-    public String type;
+public abstract class Command implements Messaging, Serializable {
+//    public String type;
     public User user;
 
-    public Command(String type) {
-        this.type = type;
+    public Command(User user){
+        this.user = user;
+    };
+
+//    public Command(String type) {
+////        this.type = type;
+////    }
+
+    public void getUser() {
     }
 
     @Override
-    public void dupa() {
-
+    public void phrase(ChatRoom chatRoom, Socket socket) {
     }
 
     @Override

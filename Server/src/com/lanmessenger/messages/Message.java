@@ -1,7 +1,9 @@
 package com.lanmessenger.messages;
 
+        import com.lanmessenger.thread.ChatRoom;
         import com.lanmessenger.users.User;
         import java.io.Serializable;
+        import java.net.Socket;
         import java.text.SimpleDateFormat;
         import java.util.Date;
 
@@ -28,6 +30,11 @@ public class Message implements Serializable, Messaging {
         return this;
     }
 
+    @Override
+    public void getUser() {
+
+    }
+
     private boolean isRecived;
     private boolean isSended;
 
@@ -37,7 +44,7 @@ public class Message implements Serializable, Messaging {
     }
 
     @Override
-    public void dupa() {
+    public void phrase(ChatRoom chatRoom, Socket socket) {
 
     }
 

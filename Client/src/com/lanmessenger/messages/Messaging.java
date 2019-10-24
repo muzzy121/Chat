@@ -1,12 +1,16 @@
 package com.lanmessenger.messages;
 
+import com.lanmessenger.thread.ChatRoom;
+import java.net.Socket;
+
 public interface Messaging {
-    public void dupa();
-    public void printMessage();
-    public boolean isRecived();
-    public Message setRecived(boolean recived);
-    public boolean isSended();
-    public Message setSended(boolean sended);
-//    private boolean isRecived;
-//    private boolean isSended;
+    void phrase(ChatRoom chatRoom, Socket socket);
+    void printMessage();
+    void getUser();
+    boolean isRecived();
+    Message setRecived(boolean recived);
+    boolean isSended();
+    Message setSended(boolean sended);
+
 }
+

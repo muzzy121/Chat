@@ -22,7 +22,7 @@ public class Main {
         InputStream inputStream = null;
         User user = new User("Muzzy", 11);
         ChatRoom chatRoom = new ChatRoom();
-        ScreenInput screenInput = new ScreenInput(chatRoom);
+        ScreenInput screenInput = new ScreenInput(chatRoom, user);
         new Thread(screenInput).start();
 
         try {
@@ -35,7 +35,8 @@ public class Main {
         new Thread(listener).start();
 
         if (socket.isConnected()) {
-            chatRoom.addSocket(socket);
+            chatRoom.setSocket(socket);
+            //user.setSocket(socket);
         }
     }
 }

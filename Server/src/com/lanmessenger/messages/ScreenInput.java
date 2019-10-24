@@ -3,6 +3,7 @@ package com.lanmessenger.messages;
 import com.lanmessenger.thread.ChatRoom;
 import com.lanmessenger.thread.Sendable;
 import com.lanmessenger.thread.Sender;
+import com.lanmessenger.users.User;
 
 import java.util.Scanner;
 
@@ -14,14 +15,14 @@ public class ScreenInput implements Runnable {
     private Sendable sender;
 
 
-    public ScreenInput(ChatRoom chatRoom) {
+    public ScreenInput(ChatRoom chatRoom, User user) {
         this.chatRoom = chatRoom;
         this.sender = new Sender(chatRoom);
     }
 
     @Override
     public void run() {
-        chatRoom.addUser(sender);
+        chatRoom.addObserver(sender);
         while (!end) {
             do {
                 System.out.print("Napisz: ");

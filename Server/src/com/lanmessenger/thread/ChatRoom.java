@@ -10,6 +10,7 @@ public class ChatRoom implements Chatable {
     private List<Message> messageList = new LinkedList<>();
     private List<Message> toSendMesseges = new LinkedList<>();
     private Map<User, Socket> userSocketMap = new HashMap<>();
+
     private Socket socket;
     private List<Sendable> sendableList = new LinkedList<>();
     private boolean state = false;
@@ -41,27 +42,31 @@ public class ChatRoom implements Chatable {
     public void addUserAndSocketToMap(Socket socket, User user){
         userSocketMap.put(user,socket);
     }
-
+//    public void addUser(User user){
+//        userList.add(user);
+//    }
+    public Collection<Socket> getUserList() {
+         return userSocketMap.values();
+    }
 
     @Override
-    public void addUser(Sendable sender) {
+    public void addObserver(Sendable sender) {
         sendableList.add(sender);
     }
 
     @Override
-    public void removeUser(Sendable sender) {
+    public void removeObserver(Sendable sender) {
         sendableList.remove(sender);
     }
 
     @Override
-    public void addSocket(Socket socket) {
+    public void setSocket(Socket socket) {
         this.socket = socket;
     }
 
     @Override
     public void update() {
         for (Sendable sender : sendableList) {
-
             sender.update();
         }
     }

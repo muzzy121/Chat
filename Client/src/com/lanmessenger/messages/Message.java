@@ -1,7 +1,9 @@
 package com.lanmessenger.messages;
 
+import com.lanmessenger.thread.ChatRoom;
 import com.lanmessenger.users.User;
 import java.io.Serializable;
+import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,6 +12,8 @@ public class Message implements Serializable, Messaging {
     private String text;
     private User user;
 
+    public void getUser(){
+    }
     public boolean isRecived() {
         return isRecived;
     }
@@ -37,7 +41,7 @@ public class Message implements Serializable, Messaging {
     }
 
     @Override
-    public void dupa() {
+    public void phrase(ChatRoom chatRoom, Socket socket) {
 
     }
 
@@ -46,4 +50,5 @@ public class Message implements Serializable, Messaging {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         System.out.println(simpleDateFormat.format(this.date) + ", " + this.text);
     }
+
 }

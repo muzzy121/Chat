@@ -11,11 +11,14 @@ import java.net.Socket;
 public class Listener implements Runnable, Listenable {
     private Socket socket;
     private InputStream inputStream;
+    private ChatRoom chatRoom;
 
 
-    public Listener(Socket socket, InputStream inputStream) {
+    public Listener(Socket socket, InputStream inputStream, ChatRoom chatRoom) {
         this.socket = socket;
         this.inputStream = inputStream;
+        this.chatRoom = chatRoom;
+
     }
 
     public Messaging Listen() {
@@ -40,11 +43,8 @@ public class Listener implements Runnable, Listenable {
 
         while (true) {
             System.out.println("Waiting for data...");
-
-//            Message message = Listen();
-            Messaging mess = Listen();
-
-            mess.printMessage();
+            Messaging pocket = Listen();
+            pocket.phrase(chatRoom, socket);
 
         }
     }
