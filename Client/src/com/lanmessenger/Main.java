@@ -20,7 +20,7 @@ public class Main {
 
         Socket socket = null;
         InputStream inputStream = null;
-        User user = new User("Muzzy", 11);
+        User user = new User("Marcin", 12);
         ChatRoom chatRoom = new ChatRoom();
         ScreenInput screenInput = new ScreenInput(chatRoom, user);
         new Thread(screenInput).start();

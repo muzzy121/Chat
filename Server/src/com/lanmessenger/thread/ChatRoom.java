@@ -5,13 +5,12 @@ import com.lanmessenger.users.User;
 
 import java.net.Socket;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ChatRoom implements Chatable {
     private List<Message> messageList = new LinkedList<>();
     private List<Message> toSendMesseges = new LinkedList<>();
-    private Map<User, Socket> userSocketMap = new HashMap<>();
-
-    private Socket socket;
+    private Map<User,Socket> userSocketMap = new HashMap<>();
     private List<Sendable> sendableList = new LinkedList<>();
     private boolean state = false;
 
@@ -36,17 +35,17 @@ public class ChatRoom implements Chatable {
         System.out.println(Arrays.toString(messageList.toArray()));
     }
 
-    public Socket getSocket() {
-        return socket;
-    }
-    public void addUserAndSocketToMap(Socket socket, User user){
+//    public Socket getSocket() {
+//        return socket;
+//    }
+    public void addUserAndSocketToMap(User user, Socket socket){
         userSocketMap.put(user,socket);
     }
 //    public void addUser(User user){
 //        userList.add(user);
 //    }
-    public Collection<Socket> getUserList() {
-         return userSocketMap.values();
+    public Collection<User> getUserList() {
+         return userSocketMap.keySet();
     }
 
     @Override
@@ -60,9 +59,36 @@ public class ChatRoom implements Chatable {
     }
 
     @Override
+    public Collection<Socket> getUsersToSend(User user) {
+        Set<Socket> result = new HashSet<>();
+        Set<Map.Entry<User,Socket>> entrySet = userSocketMap.entrySet();
+        result = entrySet.stream()
+                .filter(x -> !user.equals(x.getKey()))
+                .map(y -> y.getValue())
+                .collect(Collectors.toSet());
+
+
+//        for (Map.Entry<Socket, User> entry : entrySet) {
+//            message.send(entry.getValue().getSocket(), message.buildMessage(line, App.USER));
+//        }
+//        Collection<Socket>
+//        for (User userFromMap: userSocketMap.keySet()
+//             ) {
+//            if(user.equals(userFromMap)) {
+//
+//            }
+//        }
+//        userSocketMap.
+        System.out.println(result);
+        return null;
+    }
+
+/*
+    @Override
     public void setSocket(Socket socket) {
         this.socket = socket;
     }
+*/
 
     @Override
     public void update() {

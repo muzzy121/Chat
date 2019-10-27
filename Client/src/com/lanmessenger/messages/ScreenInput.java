@@ -26,31 +26,33 @@ public class ScreenInput implements Runnable {
         chatRoom.addObserver(sender);
 
         while (!end) {
-
-
             do {
                 System.out.print("Napisz: ");
                 content = scanner.nextLine();
             } while (content.equals(null));
 
-            Message message = new Message(content);
-            Messaging helloTest = new Hello(user);
-            ((Hello) helloTest).getUser();
-            chatRoom.addMessage(helloTest);
-            chatRoom.update();
+            if(content.matches("^//?.*$")) {
+                switch (content) {
+                    case "/hello":{
+                        Messaging packet = new Hello(user);
+                        System.out.println(packet.getUser().getUsername());
+//                        user.printUsername();
+                        chatRoom.addMessage(packet);
+                        chatRoom.update();
+                        break;
+                    }
+                    case "/end":
+                        Messaging packet = new End(user);
+                        chatRoom.addMessage(packet);
+                        chatRoom.update();
+                    default: continue;
+                }
+            } else {
+                Messaging packet = new Message(content);
+                chatRoom.addMessage(packet);
+                chatRoom.update();
+            }
 
-
-//            Messaging endTest = new End();
-//            Messaging hello = new Hello("Dupa");
-//            endTest.dupa();
-//            helloTest.dupa();
-//            ((Hello) helloTest).getType();
-//            ((Hello) hello).getType();
-//            System.out.println(helloTest.getClass());
-//            chatRoom.addMessage(message);
-
-
-//            chatRoom.update();
 
         }
     }

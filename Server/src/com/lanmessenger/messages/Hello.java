@@ -8,25 +8,25 @@ import java.net.Socket;
 import java.util.Arrays;
 
 public class Hello extends Command {
+
     @Override
     public void phrase(ChatRoom chatRoom, Socket socket) {
-        System.out.println(user);
+        User user = getUser();
+        if (!chatRoom.getUserList().isEmpty()) {
 
-        System.out.println(chatRoom.getUserList().equals(null));
-        Object[] s = chatRoom.getUserList().toArray();
-        System.out.println(Arrays.toString(s));
-        System.out.println(s.length);
-        if(!chatRoom.getUserList().isEmpty()) {
-            for (Socket s : chatRoom.getUserList()) {
-                System.out.println("do dodania: " + socket);
-                System.out.println("z listy: " + s);
-                System.out.println(socket.equals(s));
-                if (!socket.equals(socket)) {
-                    System.out.println("OK?");
-                    chatRoom.addUserAndSocketToMap(socket, user);
+            for (User u : chatRoom.getUserList()) {
+                if (!user.equals(u)) {
+                    chatRoom.addUserAndSocketToMap(user, socket);
+                } else {
+                    System.out.println(u.getUsername());
+                    System.out.println(getUser().getUsername());
+                      System.out.println("User already exist!");
+                    return;
                 }
-
-
+            }
+        } else {
+            chatRoom.addUserAndSocketToMap(user, socket);
+            System.out.println("New user has Arrived: " + user.getUsername());
         }
         System.out.println(Arrays.toString(chatRoom.getUserList().toArray()));
     }
@@ -35,8 +35,9 @@ public class Hello extends Command {
         super(user);
     }
 
-    @Override
-    public void getUser() {
-        System.out.println(user);
-    }
+//    @Override
+//    public User getUser() {
+//        System.out.println(user);
+//        return user;
+//    }
 }

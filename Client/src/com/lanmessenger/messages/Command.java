@@ -18,8 +18,10 @@ public abstract class Command implements Messaging, Serializable {
 ////        this.type = type;
 ////    }
 
-    public void getUser() {
+    public User getUser() {
+        return this.user;
     }
+
 
     @Override
     public void phrase(ChatRoom chatRoom, Socket socket) {

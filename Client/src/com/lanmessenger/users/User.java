@@ -18,8 +18,11 @@ public class User implements Serializable {
 //        this.socket = socket;
 //    }
 
-    public void getUsername() {
-        System.out.println(name);
+    public void printUsername() {
+        System.out.println(this.name);
+    }
+    public String getUsername() {
+        return this.name;
     }
 
     public boolean equals(Object o) {

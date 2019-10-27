@@ -16,8 +16,9 @@ public class Hello extends Command{
 
 
 
-    @Override
-    public void getUser() {
-        System.out.println(user);
-    }
+//    @Override
+//    public User getUser() {
+//        System.out.println(user);
+//        return user;
+//    }
 }

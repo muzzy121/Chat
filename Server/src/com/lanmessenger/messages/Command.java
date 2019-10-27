@@ -14,7 +14,9 @@ public abstract class Command implements Messaging, Serializable {
         this.user = user;
     };
 
-    public void getUser() {
+
+    public User getUser() {
+        return this.user;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.lanmessenger.thread;
 
-import com.lanmessenger.messages.Message;
 import com.lanmessenger.messages.Messaging;
 
 import java.io.IOException;
@@ -14,19 +13,20 @@ public class Listener implements Runnable, Listenable {
     private ChatRoom chatRoom;
 
 
-    public Listener(Socket socket, InputStream inputStream, ChatRoom chatRoom) {
+    public Listener(Socket socket, ChatRoom chatRoom) {
         this.socket = socket;
-        this.inputStream = inputStream;
+//        this.inputStream = inputStream;
         this.chatRoom = chatRoom;
 
     }
 
     public Messaging Listen() {
         try {
+            inputStream = socket.getInputStream();
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             if (!socket.isClosed()) {
                 Object object = objectInputStream.readObject();
-                System.out.println(object.getClass());
+//                System.out.println(object.getClass());
                 return (Messaging) object;
             }
         } catch (IOException e) {
@@ -39,8 +39,6 @@ public class Listener implements Runnable, Listenable {
 
     @Override
     public void run() {
-
-
         while (true) {
             System.out.println("Waiting for data...");
             Messaging pocket = Listen();

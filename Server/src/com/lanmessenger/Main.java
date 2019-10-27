@@ -14,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
         final int PORT = 7777;
-        ServerSocket serverSocket;
+        ServerSocket serverSocket = null;
         Socket socket = null;
         InputStream inputStream = null;
         User user = new User("Muzzy", 1);
@@ -27,19 +27,33 @@ public class Main {
 
         try {
             serverSocket = new ServerSocket(PORT);
-            socket = serverSocket.accept();
-            inputStream = socket.getInputStream();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Listener listener = new Listener(socket, inputStream, chatRoom);
-        new Thread(listener).start();
-        if(socket.isConnected()){
-            chatRoom.setSocket(socket); // TODO: 2019-10-24 On server side need to add Sockets to User, then to userlist!
-            System.out.println("Connected");
+
+        while (true) {
+            try {
+                socket = serverSocket.accept();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Listener listener = new Listener(socket, chatRoom);
+            new Thread(listener).start();
+            if (socket.isConnected()) {
+
+                //chatRoom.setSocket(socket); // TODO: 2019-10-24 On server side need to add Sockets to User, then to userlist!
+
+                System.out.println("Connected");
+            }
         }
 
     }
 }
+
+// CTLR+ALT+M ekstrakcja metody
+// CTLR+ALT+V ekstrakcja zmiennej
+// CTLR+ALT+F ekstrakcja pola
 

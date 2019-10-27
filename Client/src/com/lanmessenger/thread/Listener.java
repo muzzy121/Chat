@@ -36,8 +36,9 @@ public class Listener implements Runnable, Listenable {
     public void run() {
         while (true) {
 //            System.out.println(this.socket);
-            Messaging mess = Listen();
-            mess.printMessage();
+            Messaging packet = Listen();
+
+            packet.printMessage();
         }
     }
 }

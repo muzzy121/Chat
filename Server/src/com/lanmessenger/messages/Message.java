@@ -31,8 +31,8 @@ public class Message implements Serializable, Messaging {
     }
 
     @Override
-    public void getUser() {
-
+    public User getUser() {
+        return this.user;
     }
 
     private boolean isRecived;
@@ -46,11 +46,12 @@ public class Message implements Serializable, Messaging {
     @Override
     public void phrase(ChatRoom chatRoom, Socket socket) {
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        System.out.println(simpleDateFormat.format(this.date) + ", " + this.text);
     }
 
     @Override
     public void printMessage() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-        System.out.println(simpleDateFormat.format(this.date) + ", " + this.text);
+
     }
 }
