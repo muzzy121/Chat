@@ -21,19 +21,19 @@ public class Sender implements Sendable {
 
     @Override
     public void update() {
+
         for (Messaging message : chatRoom.getMessageToSend()) {
-//            System.out.println(message);
-//            System.out.println(message.getUser().getUsername());
 
             usersToSend.addAll(chatRoom.getUsersToSend(message.getUser()));
-            System.out.println(usersToSend + " ; " + usersToSend.getClass());
+//            System.out.println(message);
+//            System.out.println(message.getUser().getUsername());
+//            System.out.println(usersToSend + " ; " + usersToSend.getClass());
 
             if (!usersToSend.isEmpty()) {
                 for (Socket socket : usersToSend
                 ) {
                     send(socket, message);
-
-                    chatRoom.moveMessageToList();  // TODO: 2019-10-28 Need to fix this. Message are not moving to sended list if no one is on chat for now! 
+                    chatRoom.moveMessageToList();  // TODO: 2019-10-28 Need to fix this. Message are not moving to sended list if no one is on chat for now!
                 } 
             }
         }
@@ -44,8 +44,8 @@ public class Sender implements Sendable {
         try {
             OutputStream outputStream = socket.getOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-//            objectOutputStream.writeObject("Test");
-            System.out.println("Test: " + message + " ; " + socket) ;
+
+//            System.out.println("Test: " + message + " ; " + socket) ;
             objectOutputStream.writeObject(message);
             objectOutputStream.flush();
         } catch (

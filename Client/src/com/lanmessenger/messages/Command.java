@@ -15,10 +15,6 @@ public abstract class Command implements Messaging, Serializable {
         this.user = user;
     };
 
-//    public Command(String type) {
-////        this.type = type;
-////    }
-
     public User getUser() {
         return this.user;
     }

@@ -20,11 +20,6 @@ public abstract class Command implements Messaging, Serializable {
     }
 
     @Override
-    public void phrase(Chatable chatRoom, Socket socket) {
-
-    }
-
-    @Override
     public void printMessage() {
 
     }
