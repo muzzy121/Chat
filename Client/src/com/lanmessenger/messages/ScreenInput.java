@@ -1,6 +1,7 @@
 package com.lanmessenger.messages;
 
 import com.lanmessenger.thread.ChatRoom;
+import com.lanmessenger.thread.Chatable;
 import com.lanmessenger.thread.Sendable;
 import com.lanmessenger.thread.Sender;
 import com.lanmessenger.users.User;
@@ -10,11 +11,11 @@ import java.util.Scanner;
 public class ScreenInput implements Runnable {
     private boolean end = false;
     private Scanner scanner = new Scanner(System.in);
-    private ChatRoom chatRoom;
+    private Chatable chatRoom;
     private Sendable sender;
     private User user;
 
-    public ScreenInput(ChatRoom chatRoom, User user) {
+    public ScreenInput(Chatable chatRoom, User user) {
         this.chatRoom = chatRoom;
         this.sender = new Sender(chatRoom);
         this.user = user;
@@ -48,7 +49,7 @@ public class ScreenInput implements Runnable {
                     default: continue;
                 }
             } else {
-                Messaging packet = new Message(content);
+                Messaging packet = new Message(content, user);
                 chatRoom.addMessage(packet);
                 chatRoom.update();
             }

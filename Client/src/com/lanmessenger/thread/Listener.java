@@ -10,14 +10,17 @@ import java.net.Socket;
 public class Listener implements Runnable, Listenable {
     private Socket socket;
     private InputStream inputStream;
+    private Chatable chatRoom;
 
 
-    public Listener(Socket socket, InputStream inputStream) {
+    public Listener(Socket socket, Chatable chatRoom) {
         this.socket = socket;
-        this.inputStream = inputStream;
+        this.chatRoom = chatRoom;
+
     }
     public Messaging Listen() {
         try {
+            inputStream = socket.getInputStream();
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             if (!socket.isClosed()) {
                 Object object = objectInputStream.readObject();
@@ -35,10 +38,9 @@ public class Listener implements Runnable, Listenable {
     @Override
     public void run() {
         while (true) {
-//            System.out.println(this.socket);
             Messaging packet = Listen();
 
-            packet.printMessage();
+            packet.phrase(chatRoom, socket);
         }
     }
 }

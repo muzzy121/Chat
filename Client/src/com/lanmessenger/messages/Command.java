@@ -1,6 +1,7 @@
 package com.lanmessenger.messages;
 
 import com.lanmessenger.thread.ChatRoom;
+import com.lanmessenger.thread.Chatable;
 import com.lanmessenger.users.User;
 
 import java.io.Serializable;
@@ -24,7 +25,7 @@ public abstract class Command implements Messaging, Serializable {
 
 
     @Override
-    public void phrase(ChatRoom chatRoom, Socket socket) {
+    public void phrase(Chatable chatRoom, Socket socket) {
     }
 
     @Override

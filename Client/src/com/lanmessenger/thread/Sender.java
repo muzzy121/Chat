@@ -9,9 +9,9 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 public class Sender implements Sendable {
-    private ChatRoom chatRoom;
+    private Chatable chatRoom;
 
-    public Sender(ChatRoom chatRoom) {
+    public Sender(Chatable chatRoom) {
         this.chatRoom = chatRoom;
     }
 
@@ -19,10 +19,9 @@ public class Sender implements Sendable {
     @Override
     public void update() {
         for (Messaging message : chatRoom.getMessageToSend()) {
-//            System.out.println(message);
-//            System.out.println(chatRoom.getSocket().getLocalPort());
             send(chatRoom.getSocket(),message);
             chatRoom.moveMessageToList();
+
         }
     }
 

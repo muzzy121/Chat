@@ -1,16 +1,15 @@
 package com.lanmessenger.messages;
 
 import com.lanmessenger.thread.ChatRoom;
+import com.lanmessenger.thread.Chatable;
 import com.lanmessenger.users.User;
-
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Arrays;
 
 public class Hello extends Command {
 
     @Override
-    public void phrase(ChatRoom chatRoom, Socket socket) {
+    public void phrase(Chatable chatRoom, Socket socket) {
         User user = getUser();
         if (!chatRoom.getUserList().isEmpty()) {
 
@@ -34,10 +33,4 @@ public class Hello extends Command {
     public Hello(User user) {
         super(user);
     }
-
-//    @Override
-//    public User getUser() {
-//        System.out.println(user);
-//        return user;
-//    }
 }

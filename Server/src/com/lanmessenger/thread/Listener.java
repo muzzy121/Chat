@@ -10,7 +10,7 @@ import java.net.Socket;
 public class Listener implements Runnable, Listenable {
     private Socket socket;
     private InputStream inputStream;
-    private ChatRoom chatRoom;
+    private Chatable chatRoom;
 
 
     public Listener(Socket socket, ChatRoom chatRoom) {
@@ -30,6 +30,7 @@ public class Listener implements Runnable, Listenable {
                 return (Messaging) object;
             }
         } catch (IOException e) {
+            System.out.println("Disconnected without bye!");
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

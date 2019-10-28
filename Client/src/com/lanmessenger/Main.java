@@ -2,6 +2,7 @@ package com.lanmessenger;
 
 import com.lanmessenger.messages.ScreenInput;
 import com.lanmessenger.thread.ChatRoom;
+import com.lanmessenger.thread.Chatable;
 import com.lanmessenger.thread.Listener;
 import com.lanmessenger.users.User;
 
@@ -15,28 +16,25 @@ public class Main {
         final String HOST = "localhost";
         final int PORT = 7777;
 
-
-        // write your code here
-
         Socket socket = null;
         InputStream inputStream = null;
-        User user = new User("Marcin", 12);
-        ChatRoom chatRoom = new ChatRoom();
+        User user = new User("Muzzy", 11);
+        Chatable chatRoom = new ChatRoom();
         ScreenInput screenInput = new ScreenInput(chatRoom, user);
         new Thread(screenInput).start();
 
         try {
             socket = new Socket("localhost", PORT);
-            inputStream = socket.getInputStream();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Listener listener = new Listener(socket, inputStream);
+        Listener listener = new Listener(socket, chatRoom);
         new Thread(listener).start();
 
         if (socket.isConnected()) {
             chatRoom.setSocket(socket);
-            //user.setSocket(socket);
+            System.out.println("My socket is: "+ socket);
         }
     }
 }

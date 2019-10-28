@@ -17,7 +17,7 @@ public class Main {
         ServerSocket serverSocket = null;
         Socket socket = null;
         InputStream inputStream = null;
-        User user = new User("Muzzy", 1);
+        User user = new User("Server", 1);
         ChatRoom chatRoom = new ChatRoom();
         //ScreenInput screenInput;
 
