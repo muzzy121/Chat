@@ -32,6 +32,7 @@ public class Main {
         Listener listener = new Listener(socket, chatRoom);
         new Thread(listener).start();
 
+
         if (socket.isConnected()) {
             chatRoom.setSocket(socket);
             System.out.println("My socket is: "+ socket);
