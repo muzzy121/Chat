@@ -15,7 +15,7 @@ public class End extends Command {
         for (Sendable sender: chatRoom.getSendable()
              ) {
             if(sender.getUser().equals(user)) {
-                sender.send(new End(user));
+                sender.send(new Bye(user));
                 System.out.println("Test end");
             }
 
