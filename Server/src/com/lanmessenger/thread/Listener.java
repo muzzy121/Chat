@@ -11,6 +11,9 @@ public class Listener implements Runnable, Listenable {
     private Socket socket;
     private InputStream inputStream;
     private Chatable chatRoom;
+    private Sendable sender;
+
+
 
 
     public Listener(Socket socket, ChatRoom chatRoom) {
@@ -22,9 +25,9 @@ public class Listener implements Runnable, Listenable {
 
     public Messaging Listen() {
         try {
-            inputStream = socket.getInputStream();
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            if (!socket.isClosed()) {
+                if (!socket.isClosed()) {
+                inputStream = socket.getInputStream();
+                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
                 Object object = objectInputStream.readObject();
 //                System.out.println(object.getClass());
                 return (Messaging) object;
@@ -41,7 +44,7 @@ public class Listener implements Runnable, Listenable {
     @Override
     public void run() {
         while (true) {
-            System.out.println("Waiting for data...");
+//            System.out.println("Waiting for data...");
             Messaging pocket = Listen();
             pocket.phrase(chatRoom, socket);
 

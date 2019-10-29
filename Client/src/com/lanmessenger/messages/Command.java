@@ -1,14 +1,10 @@
 package com.lanmessenger.messages;
 
-import com.lanmessenger.thread.ChatRoom;
-import com.lanmessenger.thread.Chatable;
 import com.lanmessenger.users.User;
 
 import java.io.Serializable;
-import java.net.Socket;
 
 public abstract class Command implements Messaging, Serializable {
-//    public String type;
     public User user;
 
     public Command(User user){
@@ -17,11 +13,6 @@ public abstract class Command implements Messaging, Serializable {
 
     public User getUser() {
         return this.user;
-    }
-
-
-    @Override
-    public void phrase(Chatable chatRoom, Socket socket) {
     }
 
     @Override

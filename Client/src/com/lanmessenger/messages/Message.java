@@ -50,7 +50,10 @@ public class Message implements Serializable, Messaging {
 
     @Override
     public void phrase(Chatable chatRoom, Socket socket) {
-        printMessage();
+        chatRoom.getUser();
+        if (!chatRoom.getUser().equals(this.user)) {
+            printMessage();
+        }
     }
 
     @Override

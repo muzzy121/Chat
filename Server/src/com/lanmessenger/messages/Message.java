@@ -1,6 +1,7 @@
 package com.lanmessenger.messages;
 
         import com.lanmessenger.thread.Chatable;
+        import com.lanmessenger.thread.Sendable;
         import com.lanmessenger.users.User;
         import java.io.Serializable;
         import java.net.Socket;
@@ -8,6 +9,7 @@ package com.lanmessenger.messages;
         import java.util.Date;
 
 public class Message implements Serializable, Messaging {
+
     private Date date;
     private String text;
     private User user;
@@ -15,15 +17,18 @@ public class Message implements Serializable, Messaging {
     public boolean isRecived() {
         return isRecived;
     }
+
     @Override
     public Message setRecived(boolean recived) {
         isRecived = recived;
         return this;
     }
+
     @Override
     public boolean isSended() {
         return isSended;
     }
+
     @Override
     public Message setSended(boolean sended) {
         isSended = sended;
@@ -54,6 +59,7 @@ public class Message implements Serializable, Messaging {
     @Override
     public void printMessage() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-        System.out.println(simpleDateFormat.format(this.date) + ", "+ this.user.getUsername() + ": " + this.text);
+        System.out.println(simpleDateFormat.format(this.date) + ", " + this.user.getUsername() + ": " + this.text);
     }
+
 }

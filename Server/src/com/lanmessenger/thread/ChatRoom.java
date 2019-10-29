@@ -4,6 +4,7 @@ import com.lanmessenger.messages.Message;
 import com.lanmessenger.users.User;
 
 import java.net.Socket;
+import java.text.CollationElementIterator;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,31 +28,26 @@ public class ChatRoom implements Chatable {
         getMessageToSend().add(message);
     }
 
-    public List<Message> getMessageToSend() {
+    public Collection<Message> getMessageToSend() {
         return toSendMesseges;
     }
 
-    public void moveMessageToList() {
+    public void removeSendedMessages() {
         messageList.addAll(getMessageToSend());
         toSendMesseges.clear();
     }
 
-    public void displayMessages() {
-        System.out.println(Arrays.toString(messageList.toArray()));
-    }
-
-    //    public Socket getSocket() {
-//        return socket;
-//    }
     public void addUserAndSocketToMap(User user, Socket socket) {
         userSocketMap.put(user, socket);
     }
 
-    //    public void addUser(User user){
-//        userList.add(user);
-//    }
     public Collection<User> getUserList() {
         return userSocketMap.keySet();
+    }
+
+    @Override
+    public Collection<Sendable> getSendable() {
+        return sendableList;
     }
 
     @Override
@@ -71,18 +67,17 @@ public class ChatRoom implements Chatable {
         result = entrySet.stream()
                 .filter(x -> !user.equals(x.getKey()))
                 .map(y -> y.getValue())
-                //.forEach(System.out::println)
                 .collect(Collectors.toSet());
-
-//        System.out.println("Stream result: " + result.getClass());
         return result;
     }
 
     @Override
     public void update() {
         for (Sendable sender : sendableList) {
+//            System.out.println("Test");
             sender.update();
         }
+        removeSendedMessages();
     }
 
 

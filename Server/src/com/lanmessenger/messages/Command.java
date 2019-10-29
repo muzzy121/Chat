@@ -1,10 +1,8 @@
 package com.lanmessenger.messages;
 
-import com.lanmessenger.thread.Chatable;
 import com.lanmessenger.users.User;
 
 import java.io.Serializable;
-import java.net.Socket;
 
 public abstract class Command implements Messaging, Serializable {
     //    public String type;

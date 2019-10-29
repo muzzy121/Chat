@@ -12,19 +12,16 @@ public class ScreenInput implements Runnable {
     private String content;
     private Scanner scanner = new Scanner(System.in);
     private ChatRoom chatRoom;
-    private Sendable sender;
     private User user;
 
 
     public ScreenInput(ChatRoom chatRoom, User user) {
         this.chatRoom = chatRoom;
-        this.sender = new Sender(chatRoom);
         this.user = user;
     }
 
     @Override
     public void run() {
-        chatRoom.addObserver(sender);
         while (!end) {
             do {
                 System.out.print("Napisz: ");

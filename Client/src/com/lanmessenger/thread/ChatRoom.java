@@ -17,9 +17,10 @@ public class ChatRoom implements Chatable {
     private Socket socket;
     private List<Sendable> sendableList = new LinkedList<>();
     private boolean state = false;
+    private User user;
 
-    public ChatRoom(){
-
+    public ChatRoom(User user){
+        this.user = user;
     }
     public ChatRoom setState(boolean state) {
         this.state = state;
@@ -64,6 +65,11 @@ public class ChatRoom implements Chatable {
         for (Sendable sender : sendableList) {
             sender.update();
         }
+    }
+
+    @Override
+    public User getUser() {
+        return this.user;
     }
 
 
