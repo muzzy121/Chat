@@ -20,6 +20,16 @@ public class ScreenInput implements Runnable {
         this.sender = new Sender(chatRoom);
         this.user = user;
     }
+    public void printHelp() {
+        System.out.println("");
+        System.out.println("Write: ");
+        System.out.println("'/help' - see help ");
+        System.out.println("'/connect' - to connect with server ");
+        System.out.println("'/end' - to disconnect from server ");
+        System.out.println("'/list' - to see all messages ");
+        System.out.println("'/exit' - to close app ");
+        System.out.println();
+    }
 
     @Override
     public void run() {
@@ -34,7 +44,8 @@ public class ScreenInput implements Runnable {
 
             if(content.matches("^//?.*$")) {
                 switch (content) {
-                    case "/hello":{
+                    case "/connect":{
+
                         Messaging packet = new Hello(user);
                         System.out.println(packet.getUser().getUsername());
 //                        user.printUsername();
@@ -46,6 +57,12 @@ public class ScreenInput implements Runnable {
                         Messaging packet = new End(user);
                         chatRoom.addMessage(packet);
                         chatRoom.update();
+                        break;
+                    case "/list":
+                        break;
+                    case "/help":
+                        printHelp();
+                        break;
                     default: continue;
                 }
             } else {

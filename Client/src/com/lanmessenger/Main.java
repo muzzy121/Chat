@@ -29,6 +29,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         Listener listener = new Listener(socket, chatRoom);
         new Thread(listener).start();
 

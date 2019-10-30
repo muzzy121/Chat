@@ -2,6 +2,7 @@ package com.lanmessenger.messages;
 
 import com.lanmessenger.thread.ChatRoom;
 import com.lanmessenger.thread.Chatable;
+import com.lanmessenger.thread.Listener;
 import com.lanmessenger.users.User;
 
 import java.io.Serializable;
@@ -49,7 +50,7 @@ public class Message implements Serializable, Messaging {
     }
 
     @Override
-    public void phrase(Chatable chatRoom, Socket socket) {
+    public void phrase(Chatable chatRoom, Socket socket, Listener listener) {
         chatRoom.getUser();
         if (!chatRoom.getUser().equals(this.user)) {
             printMessage();

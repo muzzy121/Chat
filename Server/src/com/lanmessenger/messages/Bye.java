@@ -1,6 +1,7 @@
 package com.lanmessenger.messages;
 
 import com.lanmessenger.thread.Chatable;
+import com.lanmessenger.thread.Listener;
 import com.lanmessenger.users.User;
 
 import java.io.IOException;
@@ -16,9 +17,10 @@ public class Bye implements Messaging, Serializable{
 
 
     @Override
-    public void phrase(Chatable chatRoom, Socket socket) {
+    public void phrase(Chatable chatRoom, Socket socket, Listener listener) {
         try {
             socket.close();
+
         } catch (IOException e) {
             System.out.println("Pipa");
 //            e.printStackTrace();

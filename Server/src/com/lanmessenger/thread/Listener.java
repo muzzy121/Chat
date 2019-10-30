@@ -7,12 +7,18 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
+
 public class Listener implements Runnable, Listenable {
     private Socket socket;
     private InputStream inputStream;
     private Chatable chatRoom;
-    private Sendable sender;
+//    private Sendable sender;
+    private Messaging pocket = null;
 
+    private boolean isStart = true;
+    public void stop() {
+        this.isStart = false;
+    }
 
 
 
@@ -33,6 +39,7 @@ public class Listener implements Runnable, Listenable {
                 return (Messaging) object;
             }
         } catch (IOException e) {
+            System.out.println("");
             System.out.println("Disconnected without bye!");
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -43,11 +50,13 @@ public class Listener implements Runnable, Listenable {
 
     @Override
     public void run() {
-        while (true) {
+        while (isStart) {
 //            System.out.println("Waiting for data...");
-            Messaging pocket = Listen();
-            pocket.phrase(chatRoom, socket);
-
+            pocket = Listen();
+            if(!pocket.equals(null)) {                              // TODO: 2019-10-30 Question to Pawel - where to check if null ?!
+                pocket.phrase(chatRoom, socket, this);
+            }
+            if(socket.isClosed()) { stop();}
         }
     }
 }

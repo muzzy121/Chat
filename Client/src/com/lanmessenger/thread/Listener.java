@@ -13,16 +13,21 @@ public class Listener implements Runnable, Listenable {
     private Socket socket;
     private InputStream inputStream;
     private Chatable chatRoom;
+    private Messaging packet = null;
     private boolean isStart = true;
-
-    public void stop() {
-        this.isStart = false;
-    }
 
     public Listener(Socket socket, Chatable chatRoom) {
         this.socket = socket;
         this.chatRoom = chatRoom;
 
+    }
+
+    public void stop() {
+        this.isStart = false;
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 
     public Messaging Listen() {
@@ -45,12 +50,12 @@ public class Listener implements Runnable, Listenable {
     @Override
     public void run() {
         while (isStart) {
-            Messaging packet = Listen();
-            if (packet instanceof Bye) {
-                stop();
-                System.out.println("Wypas");
+            packet = Listen();
+            if (!packet.equals(null)) {
+                packet.phrase(chatRoom, socket, this);
             }
-            packet.phrase(chatRoom, socket);
+            if(socket.isClosed()) { stop();}
         }
     }
+
 }
