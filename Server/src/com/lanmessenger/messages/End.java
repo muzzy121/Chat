@@ -14,8 +14,8 @@ public class End extends Command {
     }
 
     @Override
-    public void phrase(Chatable chatRoom, Socket socket, Listener listener) {
-        for (Sendable sender: chatRoom.getSendable()
+    public void phrase(Listener listener) {
+        for (Sendable sender: listener.getChatRoom().getSendable()
              ) {
             if(sender.getUser().equals(user)) {
                 sender.send(new Bye(user));

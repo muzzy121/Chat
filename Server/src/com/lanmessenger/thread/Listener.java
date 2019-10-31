@@ -10,17 +10,21 @@ import java.net.Socket;
 
 public class Listener implements Runnable, Listenable {
     private Socket socket;
+
     private InputStream inputStream;
     private Chatable chatRoom;
-//    private Sendable sender;
+    //    private Sendable sender;
     private Messaging pocket = null;
-
     private boolean isStart = true;
+
     public void stop() {
         this.isStart = false;
     }
 
 
+    public Socket getSocket() {
+        return socket;
+    }
 
     public Listener(Socket socket, ChatRoom chatRoom) {
         this.socket = socket;
@@ -53,10 +57,16 @@ public class Listener implements Runnable, Listenable {
         while (isStart) {
 //            System.out.println("Waiting for data...");
             pocket = Listen();
+            System.out.println(pocket.getClass());
             if(!pocket.equals(null)) {                              // TODO: 2019-10-30 Question to Pawel - where to check if null ?!
-                pocket.phrase(chatRoom, socket, this);
+                pocket.phrase(this);
             }
             if(socket.isClosed()) { stop();}
         }
+    }
+
+    @Override
+    public Chatable getChatRoom() {
+        return this.chatRoom;
     }
 }

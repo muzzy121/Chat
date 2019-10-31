@@ -1,12 +1,9 @@
 package com.lanmessenger.messages;
 
-import com.lanmessenger.thread.ChatRoom;
-import com.lanmessenger.thread.Chatable;
+
 import com.lanmessenger.thread.Listener;
 import com.lanmessenger.users.User;
-
 import java.io.Serializable;
-import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -50,9 +47,8 @@ public class Message implements Serializable, Messaging {
     }
 
     @Override
-    public void phrase(Chatable chatRoom, Socket socket, Listener listener) {
-        chatRoom.getUser();
-        if (!chatRoom.getUser().equals(this.user)) {
+    public void phrase(Listener listener) {
+        if (!listener.getChatRoom().getUser().equals(this.user)) {
             printMessage();
         }
     }

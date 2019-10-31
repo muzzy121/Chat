@@ -8,7 +8,10 @@ import com.lanmessenger.users.User;
 import java.net.Socket;
 
 public interface Messaging {
-    void phrase(Chatable chatRoom, Socket socket, Listener listener);
+
+//    void phrase(Chatable chatRoom);
+//    void phrase(Chatable chatRoom, Socket socket);
+    void phrase(Listener listener);
     void printMessage();
     User getUser();
 

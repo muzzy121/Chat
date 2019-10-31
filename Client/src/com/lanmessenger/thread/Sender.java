@@ -1,6 +1,5 @@
 package com.lanmessenger.thread;
 
-import com.lanmessenger.messages.Message;
 import com.lanmessenger.messages.Messaging;
 import com.lanmessenger.users.User;
 
@@ -41,12 +40,12 @@ public class Sender implements Sendable {
 
             OutputStream outputStream = socket.getOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-//            objectOutputStream.writeObject("Test");
             objectOutputStream.writeObject(message);
             objectOutputStream.flush();
         } catch (
                 IOException e) {
-            e.printStackTrace();
+            System.out.println("You are not connected! Please use /connect");
+//            e.printStackTrace();
         }
     }
 }

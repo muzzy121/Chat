@@ -48,14 +48,18 @@ public class Listener implements Runnable, Listenable {
     }
 
     @Override
+    public Chatable getChatRoom() {
+        return this.chatRoom;
+    }
+
+    @Override
     public void run() {
         while (isStart) {
             packet = Listen();
             if (!packet.equals(null)) {
-                packet.phrase(chatRoom, socket, this);
+                packet.phrase(this);
             }
             if(socket.isClosed()) { stop();}
         }
     }
-
 }

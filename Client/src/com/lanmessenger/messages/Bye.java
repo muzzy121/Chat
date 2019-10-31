@@ -1,12 +1,11 @@
 package com.lanmessenger.messages;
 
-import com.lanmessenger.thread.Chatable;
+
 import com.lanmessenger.thread.Listener;
 import com.lanmessenger.users.User;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.Socket;
 
 public class Bye implements Messaging, Serializable {
     private User user;
@@ -16,7 +15,7 @@ public class Bye implements Messaging, Serializable {
     }
 
     @Override
-    public void phrase(Chatable chatRoom, Socket socket, Listener listener) {
+    public void phrase(Listener listener) {
         try {
             System.out.println("");
             System.out.println("Server said bye! Have a nice day");

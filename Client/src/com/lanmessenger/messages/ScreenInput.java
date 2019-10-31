@@ -1,6 +1,5 @@
 package com.lanmessenger.messages;
 
-import com.lanmessenger.thread.ChatRoom;
 import com.lanmessenger.thread.Chatable;
 import com.lanmessenger.thread.Sendable;
 import com.lanmessenger.thread.Sender;
@@ -45,10 +44,9 @@ public class ScreenInput implements Runnable {
             if(content.matches("^//?.*$")) {
                 switch (content) {
                     case "/connect":{
-
+                        // TODO: 2019-10-31 Add method to create new socket!
                         Messaging packet = new Hello(user);
                         System.out.println(packet.getUser().getUsername());
-//                        user.printUsername();
                         chatRoom.addMessage(packet);
                         chatRoom.update();
                         break;
@@ -63,7 +61,9 @@ public class ScreenInput implements Runnable {
                     case "/help":
                         printHelp();
                         break;
-                    default: continue;
+                    default:
+                        System.out.println("Unknown command, use /help");
+                        continue;
                 }
             } else {
                 Messaging packet = new Message(content, user);

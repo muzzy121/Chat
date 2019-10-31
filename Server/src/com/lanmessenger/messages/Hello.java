@@ -1,9 +1,6 @@
 package com.lanmessenger.messages;
 
-import com.lanmessenger.thread.Chatable;
-import com.lanmessenger.thread.Listener;
-import com.lanmessenger.thread.Sendable;
-import com.lanmessenger.thread.UpdatedSender;
+import com.lanmessenger.thread.*;
 import com.lanmessenger.users.User;
 import java.net.Socket;
 import java.util.Arrays;
@@ -11,8 +8,11 @@ import java.util.Arrays;
 public class Hello extends Command {
 
     @Override
-    public void phrase(Chatable chatRoom, Socket socket, Listener listener) {
+    public void phrase(Listener listener) {
         User user = getUser();
+        Chatable chatRoom = listener.getChatRoom();
+        Socket socket = listener.getSocket();
+
         if (!chatRoom.getUserList().isEmpty()) {
 
             for (User u : chatRoom.getUserList()) {

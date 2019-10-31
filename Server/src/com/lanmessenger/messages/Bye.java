@@ -17,9 +17,9 @@ public class Bye implements Messaging, Serializable{
 
 
     @Override
-    public void phrase(Chatable chatRoom, Socket socket, Listener listener) {
+    public void phrase(Listener listener) {
         try {
-            socket.close();
+            listener.getSocket().close();
 
         } catch (IOException e) {
             System.out.println("Pipa");
