@@ -60,6 +60,7 @@ public class Listener implements Runnable, Listenable {
             System.out.println(pocket.getClass());
             if(!pocket.equals(null)) {                              // TODO: 2019-10-30 Question to Pawel - where to check if null ?!
                 pocket.phrase(this);
+
             }
             if(socket.isClosed()) { stop();}
         }

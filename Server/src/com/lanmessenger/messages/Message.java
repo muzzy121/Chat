@@ -2,11 +2,16 @@ package com.lanmessenger.messages;
 
         import com.lanmessenger.thread.Chatable;
         import com.lanmessenger.thread.Listener;
+        import com.lanmessenger.thread.Sendable;
         import com.lanmessenger.users.User;
         import java.io.Serializable;
         import java.net.Socket;
         import java.text.SimpleDateFormat;
+        import java.util.Collection;
         import java.util.Date;
+        import java.util.Map;
+        import java.util.Set;
+        import java.util.stream.Collectors;
 
 public class Message implements Serializable, Messaging {
 
@@ -16,6 +21,17 @@ public class Message implements Serializable, Messaging {
 
     public boolean isRecived() {
         return isRecived;
+    }
+
+    @Override
+    public Collection<Sendable> getUsersToSend(User user, Chatable chatRoom) {
+        Set<Sendable> result;
+        Set<Map.Entry<User, Sendable>> entrySet = chatRoom.getSendableMap().entrySet();
+        result = entrySet.stream()
+                .filter(x -> !user.equals(x.getKey()))
+                .map(y -> y.getValue())
+                .collect(Collectors.toSet());
+        return result;
     }
 
     @Override
@@ -51,9 +67,11 @@ public class Message implements Serializable, Messaging {
 
     @Override
     public void phrase(Listener listener) {
-        printMessage();
-        listener.getChatRoom().addMessage(this);
-        listener.getChatRoom().update();
+        if(listener.getChatRoom().getUsersFromSendable().contains(this.user)) {
+            printMessage();
+            listener.getChatRoom().addMessage(this);
+            listener.getChatRoom().update();
+        }
     }
 
     @Override
@@ -61,5 +79,7 @@ public class Message implements Serializable, Messaging {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         System.out.println(simpleDateFormat.format(this.date) + ", " + this.user.getUsername() + ": " + this.text);
     }
+
+
 
 }

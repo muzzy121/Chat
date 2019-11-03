@@ -29,26 +29,31 @@ public class ScreenInput implements Runnable {
         System.out.println("'/exit' - to close app ");
         System.out.println();
     }
+    public void sendHello(){
+        Messaging packet = new Hello(user);
+        chatRoom.addMessage(packet);
+        chatRoom.update();
+    }
 
     @Override
     public void run() {
         String content;
         chatRoom.addObserver(sender);
+        //sendHello();
 
         while (!end) {
             do {
-                System.out.print("Napisz: ");
+                System.out.print("Write: ");
                 content = scanner.nextLine();
             } while (content.equals(null));
+            // TODO: 2019-11-03 Prevent sending empty messages!
 
             if(content.matches("^//?.*$")) {
                 switch (content) {
                     case "/connect":{
                         // TODO: 2019-10-31 Add method to create new socket!
-                        Messaging packet = new Hello(user);
-                        System.out.println(packet.getUser().getUsername());
-                        chatRoom.addMessage(packet);
-                        chatRoom.update();
+                        sendHello();
+//                        System.out.println(packet.getUser().getUsername());
                         break;
                     }
                     case "/end":

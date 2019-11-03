@@ -1,17 +1,18 @@
 package com.lanmessenger.thread;
 
 import com.lanmessenger.messages.Message;
+import com.lanmessenger.messages.Messaging;
 import com.lanmessenger.users.User;
 
 import java.net.Socket;
-import java.text.CollationElementIterator;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class ChatRoom implements Chatable {
-    private List<Message> messageList = new LinkedList<>();
-    private List<Message> toSendMesseges = new LinkedList<>();
+    private List<Messaging> messageList = new LinkedList<>();
+    private List<Messaging> toSendMesseges = new LinkedList<>();
     private Map<User, Socket> userSocketMap = new HashMap<>();
+    private Map<User, Sendable> userSendableMap = new HashMap<>();
     private List<Sendable> sendableList = new LinkedList<>();
     private boolean state = false;
 
@@ -24,11 +25,11 @@ public class ChatRoom implements Chatable {
         return this;
     }
 
-    public void addMessage(Message message) {
+    public void addMessage(Messaging message) {
         getMessageToSend().add(message);
     }
 
-    public Collection<Message> getMessageToSend() {
+    public Collection<Messaging> getMessageToSend() {
         return toSendMesseges;
     }
 
@@ -46,8 +47,16 @@ public class ChatRoom implements Chatable {
     }
 
     @Override
+    public Collection<User> getUsersFromSendable() { return userSendableMap.keySet();}
+
+    @Override
     public Collection<Sendable> getSendable() {
         return sendableList;
+    }
+
+    @Override
+    public void addNewObserver(User user, Sendable sender) {
+       userSendableMap.put(user, sender);
     }
 
     @Override
@@ -56,8 +65,9 @@ public class ChatRoom implements Chatable {
     }
 
     @Override
-    public void removeObserver(Sendable sender) {
-        sendableList.remove(sender);
+    public void removeObserver(User sender) {
+        userSendableMap.remove(sender);
+        System.out.println("ilu: " + userSendableMap.size());
     }
 
     @Override
@@ -71,10 +81,17 @@ public class ChatRoom implements Chatable {
         return result;
     }
 
+    public Map<User, Sendable> getSendableMap() {
+        return userSendableMap;
+    }
+
+
     @Override
     public void update() {
-        for (Sendable sender : sendableList) {
+
+        for (Sendable sender : userSendableMap.values()) {
 //            System.out.println("Test");
+
             sender.update();
         }
         removeSendedMessages();
