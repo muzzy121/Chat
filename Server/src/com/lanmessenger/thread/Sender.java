@@ -30,7 +30,7 @@
 //                for (Socket socket : usersToSend
 //                ) {
 //                    send(message);
-//                    chatRoom.removeSendedMessages();  // TODO: 2019-10-28 Need to fix this. Message are not moving to sended list if no one is on chat for now!
+//                    chatRoom.removeSendedMessages();  //
 //                }
 //            }
 //        }

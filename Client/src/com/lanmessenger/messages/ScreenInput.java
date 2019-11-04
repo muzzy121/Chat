@@ -43,8 +43,9 @@ public class ScreenInput implements Runnable {
 
         while (!end) {
             do {
-                System.out.print("Write: ");
+                System.out.print("("+ user.getUsername() +"): ");
                 content = scanner.nextLine();
+
             } while (content.equals(null));
             // TODO: 2019-11-03 Prevent sending empty messages!
 
@@ -57,14 +58,21 @@ public class ScreenInput implements Runnable {
                         break;
                     }
                     case "/end":
-                        Messaging packet = new End(user);
-                        chatRoom.addMessage(packet);
+                        Messaging end = new End(user);
+                        chatRoom.addMessage(end);
                         chatRoom.update();
                         break;
                     case "/list":
+                        System.out.println("");
+                        chatRoom.printSendedMessages();
                         break;
                     case "/help":
                         printHelp();
+                        break;
+                    case "/users":
+                        Messaging userList = new Userlist(user);
+                        chatRoom.addMessage(userList);
+                        chatRoom.update();
                         break;
                     default:
                         System.out.println("Unknown command, use /help");

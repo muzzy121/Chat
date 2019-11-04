@@ -36,6 +36,7 @@ public class Main {
 
         if (socket.isConnected()) {
             chatRoom.setSocket(socket);
+            System.out.println("");
             System.out.println("My socket is: "+ socket);
         }
     }

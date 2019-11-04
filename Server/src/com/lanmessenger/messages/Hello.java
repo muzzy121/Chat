@@ -19,7 +19,7 @@ public class Hello extends Command {
             for (User u : chatRoom.getUsersFromSendable()) {
                 if (!user.equals(u)) {
                     Sendable sender = new UpdatedSender(chatRoom, socket, user);
-                    chatRoom.addNewObserver(user, sender);
+                    chatRoom.addObserver(user, sender);
                 } else {
                     System.out.println(u.getUsername());
                     System.out.println(getUser().getUsername());
@@ -29,8 +29,8 @@ public class Hello extends Command {
             }
         } else {
             Sendable sender = new UpdatedSender(chatRoom, socket, user);
-            chatRoom.addNewObserver(user, sender);
-            System.out.println("New user has Arrived: " + user.getUsername());
+            chatRoom.addObserver(user, sender);
+            System.out.println("New user connected: " + user.getUsername());
         }
         System.out.println(Arrays.toString(chatRoom.getUsersFromSendable().toArray()));
     }

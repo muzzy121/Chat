@@ -14,14 +14,16 @@ package com.lanmessenger.messages;
         import java.util.stream.Collectors;
 
 public class Message implements Serializable, Messaging {
-
     private Date date;
     private String text;
     private User user;
 
-    public boolean isRecived() {
-        return isRecived;
+    public Message(String text, User user) {
+        this.date = new Date();
+        this.text = text;
+        this.user = user;
     }
+
 
     @Override
     public Collection<Sendable> getUsersToSend(User user, Chatable chatRoom) {
@@ -35,34 +37,8 @@ public class Message implements Serializable, Messaging {
     }
 
     @Override
-    public Message setRecived(boolean recived) {
-        isRecived = recived;
-        return this;
-    }
-
-    @Override
-    public boolean isSended() {
-        return isSended;
-    }
-
-    @Override
-    public Message setSended(boolean sended) {
-        isSended = sended;
-        return this;
-    }
-
-    @Override
     public User getUser() {
         return this.user;
-    }
-
-    private boolean isRecived;
-    private boolean isSended;
-
-    public Message(String text, User user) {
-        this.date = new Date();
-        this.text = text;
-        this.user = user;
     }
 
     @Override

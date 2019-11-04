@@ -6,7 +6,6 @@ import com.lanmessenger.thread.Sendable;
 import com.lanmessenger.users.User;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.util.Collection;
 
 public class End extends Command {
@@ -16,13 +15,12 @@ public class End extends Command {
 
     @Override
     public void phrase(Listener listener) {
-
         for (Sendable sender: listener.getChatRoom().getSendableMap().values()
              ) {
 
             if(sender.getUser().equals(user)) {
                 sender.send(new Bye(user));
-                System.out.println("Recived end pocket. Sending bye to: " + user);
+//                System.out.println("Recived end pocket. Sending bye to: " + user);
                 try {
                     listener.stop();
                     sender.getSocket().close();

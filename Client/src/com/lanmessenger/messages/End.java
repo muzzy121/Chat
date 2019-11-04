@@ -14,8 +14,7 @@ public class End extends Command {
 
     @Override
     public void phrase(Listener listener) {
-        System.out.println("Test end: " + user.getUsername());
-
+//        System.out.println("Test end: " + user.getUsername());
     }
 
     @Override

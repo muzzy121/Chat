@@ -7,7 +7,6 @@ import com.lanmessenger.users.User;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.Socket;
 import java.util.Collection;
 
 public class Bye implements Messaging, Serializable{
@@ -44,23 +43,4 @@ public class Bye implements Messaging, Serializable{
         return null;
     }
 
-    @Override
-    public boolean isRecived() {
-        return false;
-    }
-
-    @Override
-    public Message setRecived(boolean recived) {
-        return null;
-    }
-
-    @Override
-    public boolean isSended() {
-        return false;
-    }
-
-    @Override
-    public Message setSended(boolean sended) {
-        return null;
-    }
 }

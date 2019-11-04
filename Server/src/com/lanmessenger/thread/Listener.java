@@ -10,10 +10,8 @@ import java.net.Socket;
 
 public class Listener implements Runnable, Listenable {
     private Socket socket;
-
     private InputStream inputStream;
     private Chatable chatRoom;
-    //    private Sendable sender;
     private Messaging pocket = null;
     private boolean isStart = true;
 
@@ -22,15 +20,19 @@ public class Listener implements Runnable, Listenable {
     }
 
 
+    public Listener(Socket socket, ChatRoom chatRoom) {
+        this.socket = socket;
+        this.chatRoom = chatRoom;
+
+    }
+
     public Socket getSocket() {
         return socket;
     }
 
-    public Listener(Socket socket, ChatRoom chatRoom) {
-        this.socket = socket;
-//        this.inputStream = inputStream;
-        this.chatRoom = chatRoom;
-
+    @Override
+    public Chatable getChatRoom() {
+        return this.chatRoom;
     }
 
     public Messaging Listen() {
@@ -39,13 +41,14 @@ public class Listener implements Runnable, Listenable {
                 inputStream = socket.getInputStream();
                 ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
                 Object object = objectInputStream.readObject();
-//                System.out.println(object.getClass());
                 return (Messaging) object;
             }
         } catch (IOException e) {
             System.out.println("");
             System.out.println("Disconnected without bye!");
-            e.printStackTrace();
+            getChatRoom().removeObserver(getChatRoom().getUserBySocket(socket));
+            // TODO: 2019-11-04 Remove broken user from MAP! Have no idea how!
+            //e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -57,17 +60,12 @@ public class Listener implements Runnable, Listenable {
         while (isStart) {
 //            System.out.println("Waiting for data...");
             pocket = Listen();
-            System.out.println(pocket.getClass());
             if(!pocket.equals(null)) {                              // TODO: 2019-10-30 Question to Pawel - where to check if null ?!
+                System.out.println(pocket.getClass());
                 pocket.phrase(this);
 
             }
             if(socket.isClosed()) { stop();}
         }
-    }
-
-    @Override
-    public Chatable getChatRoom() {
-        return this.chatRoom;
     }
 }

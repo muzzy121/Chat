@@ -20,14 +20,14 @@ public class Bye implements Messaging, Serializable {
     @Override
     public void phrase(Listener listener) {
         try {
-            System.out.println("");
+//            System.out.println("");
             System.out.println("Disconnected from server!");
             listener.stop();
             listener.getSocket().close();
 
 
         } catch (IOException e) {
-            System.out.println("Pipa");
+            System.out.println("Error while disconnecting from server!");
 //            e.printStackTrace();
         }
     }
@@ -47,23 +47,4 @@ public class Bye implements Messaging, Serializable {
         return null;
     }
 
-    @Override
-    public boolean isRecived() {
-        return false;
-    }
-
-    @Override
-    public Message setRecived(boolean recived) {
-        return null;
-    }
-
-    @Override
-    public boolean isSended() {
-        return false;
-    }
-
-    @Override
-    public Message setSended(boolean sended) {
-        return null;
-    }
 }

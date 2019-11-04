@@ -15,6 +15,8 @@ public interface Chatable {
 
     void update();
 
+    void printSendedMessages();
+
     User getUser();
 
     Socket getSocket();

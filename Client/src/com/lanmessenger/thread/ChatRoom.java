@@ -13,7 +13,6 @@ import java.util.Map;
 public class ChatRoom implements Chatable {
     private List<Messaging> messageList = new LinkedList<>();
     private List<Messaging> toSendMesseges = new LinkedList<>();
-    private Map<User, Socket> userSocketMap;
     private Socket socket;
     private List<Sendable> sendableList = new LinkedList<>();
     private boolean state = false;
@@ -30,9 +29,7 @@ public class ChatRoom implements Chatable {
         toSendMesseges.add(message);
     }
 
-    public void displayMessages() {
-        System.out.println(Arrays.toString(messageList.toArray()));
-    }
+
     public List<Messaging> getMessageToSend(){
             return toSendMesseges;
         }
@@ -43,6 +40,14 @@ public class ChatRoom implements Chatable {
 
     public Socket getSocket() {
         return socket;
+    }
+
+    @Override
+    public void printSendedMessages() {
+        for (Messaging message: messageList
+        ) {
+            message.printMessage();
+        }
     }
 
     @Override

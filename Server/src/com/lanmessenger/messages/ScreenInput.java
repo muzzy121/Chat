@@ -34,7 +34,7 @@ public class ScreenInput implements Runnable {
     public void run() {
         while (!end) {
             do {
-                System.out.print("Write: ");
+                System.out.print("("+ user.getUsername() +"): ");
                 content = scanner.nextLine();
             } while (content.equals(null));
             if (content.matches("^//?.*$")) {
@@ -49,6 +49,7 @@ public class ScreenInput implements Runnable {
                         chatRoom.update();
                         break;
                     case "/list":
+                        chatRoom.printSendedMessages();
                         break;
                     case "/help":
                         printHelp();
