@@ -92,14 +92,3 @@ public class ChatRoom implements Chatable {
         }
     }
 }
-//    @Override
-//    public Collection<Socket> getUsersToSend(User user) {
-//        Set<Socket> result;
-//        Set<Map.Entry<User, Socket>> entrySet = userSocketMap.entrySet();
-//        result = entrySet.stream()
-//                .filter(x -> !user.equals(x.getKey()))
-//                .map(y -> y.getValue())
-//                .collect(Collectors.toSet());
-//        return result;
-//
-//    }

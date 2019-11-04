@@ -46,9 +46,10 @@ public class Listener implements Runnable, Listenable {
         } catch (IOException e) {
             System.out.println("");
             System.out.println("Disconnected without bye!");
+
             getChatRoom().removeObserver(getChatRoom().getUserBySocket(socket));
             // TODO: 2019-11-04 Remove broken user from MAP! Have no idea how!
-            //e.printStackTrace();
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -60,12 +61,19 @@ public class Listener implements Runnable, Listenable {
         while (isStart) {
 //            System.out.println("Waiting for data...");
             pocket = Listen();
-            if(!pocket.equals(null)) {                              // TODO: 2019-10-30 Question to Pawel - where to check if null ?!
+            try {
+            if(!pocket.equals(null)) {                              // TODO: 2019-10-30 Question to Pawel - where to check if null ?! For now checked in exception works well
+
                 System.out.println(pocket.getClass());
                 pocket.phrase(this);
 
             }
             if(socket.isClosed()) { stop();}
+
+            } catch (NullPointerException npe) {
+                stop();
+            }
         }
+
     }
 }
