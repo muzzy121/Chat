@@ -56,10 +56,16 @@ public class Listener implements Runnable, Listenable {
     public void run() {
         while (isStart) {
             packet = Listen();
-            if (!packet.equals(null)) {
-                packet.phrase(this);
+            try {
+                if (!packet.equals(null)) {
+                    packet.phrase(this);
+                }
+                if (socket.isClosed()) {
+                    stop();
+                }
+            } catch (NullPointerException npe) {
+
             }
-            if(socket.isClosed()) { stop();}
         }
     }
 }
