@@ -40,7 +40,7 @@ public class ScreenInput implements Runnable {
             if (content.matches("^//?.*$")) {
                 switch (content) {
                     case "/users": {
-                        System.out.println(Arrays.toString(chatRoom.getUsersFromSendable().toArray()));
+                        chatRoom.getUsersFromSendable().stream().forEach(z -> System.out.println(z.getUsername()));
                         break;
                     }
                     case "/end":
