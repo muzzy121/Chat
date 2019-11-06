@@ -8,7 +8,7 @@ import com.lanmessenger.users.User;
 import java.util.Scanner;
 
 public class ScreenInput implements Runnable {
-    private boolean end = false;
+    private boolean isStart = true;
     private Scanner scanner = new Scanner(System.in);
     private Chatable chatRoom;
     private Sendable sender;
@@ -39,22 +39,18 @@ public class ScreenInput implements Runnable {
     public void run() {
         String content;
         chatRoom.addObserver(sender);
-        //sendHello();
-
-        while (!end) {
+        while (isStart) {
             do {
                 System.out.print("("+ user.getUsername() +"): ");
                 content = scanner.nextLine();
 
-            } while (content.equals(null));
-            // TODO: 2019-11-03 Prevent sending empty messages!
+            } while (content.equals(null) || content.trim().equals("")); // TODO: 2019-11-03 Prevent sending empty messages! Check if works now!
 
             if(content.matches("^//?.*$")) {
                 switch (content) {
                     case "/connect":{
-                        // TODO: 2019-10-31 Add method to create new socket!
+                        chatRoom.connect();
                         sendHello();
-//                        System.out.println(packet.getUser().getUsername());
                         break;
                     }
                     case "/end":

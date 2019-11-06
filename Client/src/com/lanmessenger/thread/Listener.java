@@ -32,9 +32,9 @@ public class Listener implements Runnable, Listenable {
 
     public Messaging Listen() {
         try {
-            inputStream = socket.getInputStream();
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            if (!socket.isClosed()) {
+            if (socket.isConnected()) {
+                inputStream = socket.getInputStream();
+                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
                 Object object = objectInputStream.readObject();
 //                System.out.println(object.getClass());
                 return (Messaging) object;
@@ -54,9 +54,10 @@ public class Listener implements Runnable, Listenable {
 
     @Override
     public void run() {
+        System.out.println(socket.isClosed());
         while (isStart) {
-            packet = Listen();
             try {
+                packet = Listen();
                 if (!packet.equals(null)) {
                     packet.phrase(this);
                 }
@@ -64,7 +65,7 @@ public class Listener implements Runnable, Listenable {
                     stop();
                 }
             } catch (NullPointerException npe) {
-
+                stop();
             }
         }
     }

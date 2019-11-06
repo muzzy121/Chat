@@ -4,7 +4,6 @@ import com.lanmessenger.thread.*;
 import com.lanmessenger.users.User;
 
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.Collection;
 
 public class Hello extends Command {
@@ -18,21 +17,20 @@ public class Hello extends Command {
         if (!chatRoom.getUsersFromSendable().isEmpty()) {
             for (User u : chatRoom.getUsersFromSendable()) {
                 if (!user.equals(u)) {
-                    Sendable sender = new UpdatedSender(chatRoom, socket, user);
+                    Sendable sender = new Sender(chatRoom, socket, user);
                     chatRoom.addObserver(user, sender);
                 } else {
-                    System.out.println(u.getUsername());
-                    System.out.println(getUser().getUsername());
+//                    System.out.println(u.getUsername());
+//                    System.out.println(getUser().getUsername());
                     System.out.println("User already exist!");
                     return;
                 }
             }
         } else {
-            Sendable sender = new UpdatedSender(chatRoom, socket, user);
+            Sendable sender = new Sender(chatRoom, socket, user);
             chatRoom.addObserver(user, sender);
             System.out.println("New user connected: " + user.getUsername());
         }
-        System.out.println(Arrays.toString(chatRoom.getUsersFromSendable().toArray()));
     }
 
     @Override

@@ -32,9 +32,9 @@ public class Userlist extends Command implements Serializable {
         for (User user : users
         ) {
             if (this.user.equals(user)) {
-                System.out.println(user.getUsername() + " (me)");
+                System.out.println("\t" + user.getUsername() + " (me)");
             } else {
-                System.out.println(user.getUsername());
+                System.out.println("\t" + user.getUsername());
             }
         }
     }

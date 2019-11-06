@@ -1,66 +1,54 @@
-//package com.lanmessenger.thread;
-//
-//import com.lanmessenger.messages.Messaging;
-//import com.lanmessenger.users.User;
-//
-//import java.io.IOException;
-//import java.io.ObjectOutputStream;
-//import java.io.OutputStream;
-//import java.net.Socket;
-//import java.util.Collection;
-//import java.util.HashSet;
-//
-//public class Sender implements Sendable {
-//    private ChatRoom chatRoom;
-//    private Socket socket;
-//    Collection<Socket> usersToSend = new HashSet<>();
-//
-//    public Sender(ChatRoom chatRoom) {
-//        this.chatRoom = chatRoom;
-//    }
-//
-//    @Override
-//    public void update() {
-//
-//        for (Messaging message : chatRoom.getMessageToSend()) {
-//
-//            usersToSend.addAll(chatRoom.getUsersToSend(message.getUser()));
-//
-//            if (!usersToSend.isEmpty()) {
-//                for (Socket socket : usersToSend
-//                ) {
-//                    send(message);
-//                    chatRoom.removeSendedMessages();  //
-//                }
-//            }
-//        }
-//    }
-//
-//    public void send(Messaging message) {
-//        try {
-//            OutputStream outputStream = socket.getOutputStream();
-//            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-//
-//            objectOutputStream.writeObject(message);
-//            objectOutputStream.flush();
-//        } catch (
-//                IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @Override
-//    public Socket getSocket() {
-//        return null;
-//    }
-//
-//    @Override
-//    public User getUser() {
-//        return null;
-//    }
-//
-//}
-////            System.out.println(message);
-////            System.out.println(message.getUser().getUsername());
-////            System.out.println(usersToSend + " ; " + usersToSend.getClass());
-////            System.out.println("Test: " + message + " ; " + socket) ;
+package com.lanmessenger.thread;
+
+import com.lanmessenger.messages.Messaging;
+import com.lanmessenger.users.User;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.util.Collection;
+
+public class Sender implements Sendable{
+    private Chatable chatRoom;
+    private Socket socket;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public Sender(Chatable chatRoom, Socket socket, User user) {
+        this.chatRoom = chatRoom;
+        this.socket = socket;
+        this.user = user;
+
+    }
+
+    public void send(Messaging message) {
+        try {
+            OutputStream outputStream = socket.getOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(message);
+            objectOutputStream.flush();
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update() {
+        for (Messaging pocket : chatRoom.getMessageToSend()) {
+            if(!pocket.getUser().equals(this.user)){
+                send(pocket);
+            }
+        }
+
+
+    }
+}

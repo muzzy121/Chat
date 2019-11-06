@@ -27,9 +27,8 @@ public class Userlist extends Command implements Serializable {
 
     @Override
     public void phrase(Listener listener) {
-        Userlist userList = new Userlist(user)
-                .setUsers(new ArrayList(listener.getChatRoom().getUsersFromSendable()));
-        listener.getChatRoom().getSendableMap().get(user).send(userList); // TODO: 2019-11-04 Should I make that kind of construction?
+        users = new ArrayList(listener.getChatRoom().getUsersFromSendable());
+        listener.getChatRoom().getSendableMap().get(user).send(this); // TODO: 2019-11-04 Should I make that kind of construction?
     }
 
     @Override

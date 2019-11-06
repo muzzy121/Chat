@@ -12,7 +12,6 @@ public class ChatRoom implements Chatable {
     private List<Messaging> messageList = new LinkedList<>();
     private List<Messaging> toSendMesseges = new LinkedList<>();
     private Map<User, Sendable> userSendableMap = new HashMap<>();
-    //    private List<Sendable> sendableList = new LinkedList<>();
     private boolean state = false;
 
     public ChatRoom() {
@@ -66,7 +65,6 @@ public class ChatRoom implements Chatable {
     @Override
     public void removeObserver(User sender) {
         userSendableMap.remove(sender);
-//        System.out.println("ilu: " + userSendableMap.size());
     }
 
     @Override

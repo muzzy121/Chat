@@ -17,13 +17,15 @@ public interface Chatable {
 
     void printSendedMessages();
 
+    void moveMessageToList();
+
+    void addMessage(Messaging message);
+
+    void connect();
+
     User getUser();
 
     Socket getSocket();
 
     List<Messaging> getMessageToSend();
-
-    void moveMessageToList();
-
-    void addMessage(Messaging message);
 }

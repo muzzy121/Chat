@@ -43,9 +43,7 @@ public class Main {
             Listener listener = new Listener(socket, chatRoom);
             new Thread(listener).start();
             if (socket.isConnected()) {
-
-                //chatRoom.setSocket(socket); // TODO: 2019-10-24 On server side need to add Sockets to User, then to userlist!
-
+                System.out.println("");
                 System.out.println("Connected");
             }
         }

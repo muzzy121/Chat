@@ -2,12 +2,11 @@ package com.lanmessenger.messages;
 
 import com.lanmessenger.thread.ChatRoom;
 import com.lanmessenger.users.User;
-
-import java.util.Arrays;
 import java.util.Scanner;
 
+
 public class ScreenInput implements Runnable {
-    private boolean end = false;
+    private boolean isStart = true;
     private String content;
     private Scanner scanner = new Scanner(System.in);
     private ChatRoom chatRoom;
@@ -30,9 +29,17 @@ public class ScreenInput implements Runnable {
         System.out.println();
     }
 
+
+    private void end() {
+        Messaging packet = new End(user);
+        chatRoom.addMessage(packet);
+        chatRoom.update();
+    }
+
+
     @Override
     public void run() {
-        while (!end) {
+        while (isStart) {
             do {
                 System.out.print("("+ user.getUsername() +"): ");
                 content = scanner.nextLine();
@@ -40,13 +47,11 @@ public class ScreenInput implements Runnable {
             if (content.matches("^//?.*$")) {
                 switch (content) {
                     case "/users": {
-                        chatRoom.getUsersFromSendable().stream().forEach(z -> System.out.println(z.getUsername()));
+                        chatRoom.getUsersFromSendable().stream().forEach(z -> System.out.println("\t" +z.getUsername()));
                         break;
                     }
                     case "/end":
-                        Messaging packet = new End(user);
-                        chatRoom.addMessage(packet);
-                        chatRoom.update();
+                        end();
                         break;
                     case "/list":
                         chatRoom.printSendedMessages();

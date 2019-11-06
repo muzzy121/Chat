@@ -1,9 +1,11 @@
 package com.lanmessenger.thread;
 
+import com.lanmessenger.Main;
 import com.lanmessenger.messages.Message;
 import com.lanmessenger.messages.Messaging;
 import com.lanmessenger.users.User;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -24,6 +26,18 @@ public class ChatRoom implements Chatable {
     public ChatRoom setState(boolean state) {
         this.state = state;
         return this;
+    }
+    public void connect(){
+        try {
+
+            System.out.println(Main.serverAddress);
+            socket.connect(Main.serverAddress);
+            Listener listener = new Listener(socket, this);
+            new Thread(listener).start();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void addMessage(Messaging message){
         toSendMesseges.add(message);

@@ -63,10 +63,8 @@ public class Listener implements Runnable, Listenable {
             pocket = Listen();
             try {
             if(!pocket.equals(null)) {                              // TODO: 2019-10-30 Question to Pawel - where to check if null ?! For now checked in exception works well
-
                 System.out.println(pocket.getClass());
                 pocket.phrase(this);
-
             }
             if(socket.isClosed()) { stop();}
 
