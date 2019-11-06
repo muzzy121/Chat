@@ -14,6 +14,7 @@ public class ScreenInput implements Runnable {
     private Sendable sender;
     private User user;
 
+
     public ScreenInput(Chatable chatRoom, User user) {
         this.chatRoom = chatRoom;
         this.sender = new Sender(chatRoom);
@@ -48,6 +49,13 @@ public class ScreenInput implements Runnable {
 
             if(content.matches("^//?.*$")) {
                 switch (content) {
+                    case "/diag" :{
+                        System.out.println("isConnected: " + chatRoom.getSocket().isConnected());
+                        System.out.println("isClosed: " + chatRoom.getSocket().isClosed());
+                        System.out.println("isBound: " + chatRoom.getSocket().isBound());
+                        System.out.println("Socket: " + chatRoom.getSocket());
+                        break;
+                    }
                     case "/connect":{
                         chatRoom.connect();
                         sendHello();
@@ -78,6 +86,7 @@ public class ScreenInput implements Runnable {
                 Messaging packet = new Message(content, user);
                 chatRoom.addMessage(packet);
                 chatRoom.update();
+
             }
 
 

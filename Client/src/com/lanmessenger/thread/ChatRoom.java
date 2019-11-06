@@ -15,39 +15,51 @@ import java.util.Map;
 public class ChatRoom implements Chatable {
     private List<Messaging> messageList = new LinkedList<>();
     private List<Messaging> toSendMesseges = new LinkedList<>();
-    private Socket socket;
+    private Socket socket = new Socket();
     private List<Sendable> sendableList = new LinkedList<>();
     private boolean state = false;
     private User user;
 
-    public ChatRoom(User user){
+    public ChatRoom(User user) {
         this.user = user;
+//        this.socket = socket;
     }
+
     public ChatRoom setState(boolean state) {
         this.state = state;
         return this;
     }
-    public void connect(){
+
+    public void connect() {
         try {
-
-            System.out.println(Main.serverAddress);
-            socket.connect(Main.serverAddress);
-            Listener listener = new Listener(socket, this);
-            new Thread(listener).start();
-
+            //System.out.println(Main.serverAddress);
+            if (socket.isClosed()) {
+                this.socket = new Socket();
+            }
+            if (!socket.isConnected() || socket.isClosed()) {
+                socket.connect(Main.serverAddress);
+                System.out.println("Connected to: " + socket.getInetAddress().getHostName());
+                Listener listener = new Listener(socket, this);
+                new Thread(listener).start();
+            } else {
+                System.out.println("Already connected!");
+            }
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Unable to connect to " + Main.serverAddress.getHostName());
         }
     }
-    public void addMessage(Messaging message){
+
+    public void addMessage(Messaging message) {
         toSendMesseges.add(message);
     }
 
 
-    public List<Messaging> getMessageToSend(){
-            return toSendMesseges;
-        }
-    public void moveMessageToList(){
+    public List<Messaging> getMessageToSend() {
+        return toSendMesseges;
+    }
+
+    public void moveMessageToList() {
         messageList.addAll(getMessageToSend());
         toSendMesseges.clear();
     }
@@ -58,7 +70,7 @@ public class ChatRoom implements Chatable {
 
     @Override
     public void printSendedMessages() {
-        for (Messaging message: messageList
+        for (Messaging message : messageList
         ) {
             message.printMessage();
         }

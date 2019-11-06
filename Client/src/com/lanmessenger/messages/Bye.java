@@ -23,6 +23,7 @@ public class Bye implements Messaging, Serializable {
 //            System.out.println("");
             System.out.println("Disconnected from server!");
             listener.stop();
+            //listener.getSocket().
             listener.getSocket().close();
 
 

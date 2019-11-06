@@ -19,30 +19,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-
-        Socket socket = new Socket();
-        InputStream inputStream = null;
-        User user = new User("Muzzy", 11);
+        // TODO: 2019-11-06 Most difficult. Solution for find a server in Network class - need to put this on different branch!!!
+        User user = new User("Muzzy", 11); // TODO: 2019-11-06 Random user id creator!
         Chatable chatRoom = new ChatRoom(user);
         ScreenInput screenInput = new ScreenInput(chatRoom, user);
         new Thread(screenInput).start();
 
-        try {
-            //socket.connect(serverAddress);
-            System.out.println("");
-            System.out.println("My socket is: "+ (socket.isConnected() ? "Connected" : "Not connected!"));
-
-        } catch (/*IOException e*/ Exception e) {
-//            e.printStackTrace();
-            System.out.println("Unable to connect to "+ HOST);
-        }
-
-        chatRoom.setSocket(socket);
-//        Listener listener = new Listener(socket, chatRoom);
-//        new Thread(listener).start();
-
-
-//        if (socket.isConnected()) {
-//        }
     }
 }

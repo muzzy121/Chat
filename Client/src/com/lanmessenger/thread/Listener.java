@@ -54,7 +54,7 @@ public class Listener implements Runnable, Listenable {
 
     @Override
     public void run() {
-        System.out.println(socket.isClosed());
+//        System.out.println(socket.isClosed());
         while (isStart) {
             try {
                 packet = Listen();
