@@ -3,6 +3,7 @@ package com.lanmessenger;
 import com.lanmessenger.messages.ScreenInput;
 import com.lanmessenger.thread.ChatRoom;
 import com.lanmessenger.thread.Listener;
+import com.lanmessenger.thread.LookupListener;
 import com.lanmessenger.users.User;
 
 import java.io.IOException;
@@ -14,17 +15,19 @@ public class Main {
 
     public static void main(String[] args) {
         final int PORT = 7777;
+        final int LOOKUPPORT = 7778;
         ServerSocket serverSocket = null;
         Socket socket = null;
-        InputStream inputStream = null;
         User user = new User("Server", 1);
         ChatRoom chatRoom = new ChatRoom();
-        //ScreenInput screenInput;
+        LookupListener lookupListener = new LookupListener(LOOKUPPORT);
+        new Thread(lookupListener).start();
 
-
+        
+        
         ScreenInput screenInput = new ScreenInput(chatRoom, user);
         new Thread(screenInput).start();
-
+    
         try {
             serverSocket = new ServerSocket(PORT);
 

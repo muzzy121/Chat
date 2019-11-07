@@ -1,6 +1,7 @@
 package com.lanmessenger.messages;
 
 import com.lanmessenger.thread.Chatable;
+import com.lanmessenger.thread.Finder;
 import com.lanmessenger.thread.Sendable;
 import com.lanmessenger.thread.Sender;
 import com.lanmessenger.users.User;
@@ -77,6 +78,10 @@ public class ScreenInput implements Runnable {
                         Messaging userList = new Userlist(user);
                         chatRoom.addMessage(userList);
                         chatRoom.update();
+                        break;
+                    case "/search":
+                        Finder finder = new Finder();
+                        new Thread(finder).start();
                         break;
                     default:
                         System.out.println("Unknown command, use /help");

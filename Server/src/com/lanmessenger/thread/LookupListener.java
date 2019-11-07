@@ -1,6 +1,8 @@
 package com.lanmessenger.thread;
 
 
+import java.io.IOException;
+import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
@@ -9,23 +11,37 @@ import java.net.SocketException;
 public class LookupListener implements Runnable{
     private boolean isStart = true;
     private DatagramSocket datagramSocket;
-    InetSocketAddress inetSocketAddress = new InetSocketAddress("0.0.0.0", 7778);
+    private int port;
+    InetSocketAddress inetSocketAddress = new InetSocketAddress("0.0.0.0", port);
+
+    public LookupListener(int lookupPort) {
+        this.port = lookupPort;
+    }
 
     public void stop() {
         this.isStart = false;
     }
     @Override
     public void run() {
+        try {
+            datagramSocket = new DatagramSocket(inetSocketAddress);
+            datagramSocket.setBroadcast(true);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
         while (isStart) {
+                byte[] buffer = new byte[1500];
+                DatagramPacket datagramPacket = new DatagramPacket(buffer, buffer.length);
             try {
-                datagramSocket = new DatagramSocket(inetSocketAddress);
-                datagramSocket.setBroadcast(true);
-
-                int tmp = datagramSocket.getBroadcast();
-
-            } catch (SocketException e) {
+                datagramSocket.receive(datagramPacket);
+                System.out.println("Recived pocket: " + datagramPacket.getData());
+                System.out.println("Recived from: "+ datagramPacket.getAddress());
+                // TODO: 2019-11-07 See if I can catch broadcast packet!
+            } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
         }
     }
 
