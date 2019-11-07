@@ -2,20 +2,17 @@ package com.lanmessenger.thread;
 
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetSocketAddress;
-import java.net.SocketException;
+import java.net.*;
 
 //Class for a socket Listener for broadcast pockets - used for check if server is available in the network
 public class LookupListener implements Runnable{
     private boolean isStart = true;
     private DatagramSocket datagramSocket;
-    private int port;
-    InetSocketAddress inetSocketAddress = new InetSocketAddress("0.0.0.0", port);
+    private InetSocketAddress inetSocketAddress;
 
-    public LookupListener(int lookupPort) {
-        this.port = lookupPort;
+
+    public LookupListener(InetSocketAddress inetSocketAddress) {
+        this.inetSocketAddress = inetSocketAddress;
     }
 
     public void stop() {
@@ -30,13 +27,18 @@ public class LookupListener implements Runnable{
             e.printStackTrace();
         }
         while (isStart) {
-                byte[] buffer = new byte[1500];
+                byte[] buffer = new byte[15000];  // create a buffer, which can handle packet ones will be get later in  datagramSocket.receive!
                 DatagramPacket datagramPacket = new DatagramPacket(buffer, buffer.length);
             try {
+                System.out.println("Waiting for packet!");
                 datagramSocket.receive(datagramPacket);
                 System.out.println("Recived pocket: " + datagramPacket.getData());
                 System.out.println("Recived from: "+ datagramPacket.getAddress());
                 // TODO: 2019-11-07 See if I can catch broadcast packet!
+                // TODO: 2019-11-07 Check if packet is fine and send back packet
+                // TODO: 2019-11-07 In response send Servername!!!! 
+                DatagramPacket packet = new DatagramPacket();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

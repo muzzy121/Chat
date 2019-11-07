@@ -8,6 +8,7 @@ import com.lanmessenger.users.User;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -15,12 +16,12 @@ public class Main {
 
     public static void main(String[] args) {
         final int PORT = 7777;
-        final int LOOKUPPORT = 7778;
+        final InetSocketAddress inetSocketAddress = new InetSocketAddress("0.0.0.0", 7778);
         ServerSocket serverSocket = null;
         Socket socket = null;
         User user = new User("Server", 1);
         ChatRoom chatRoom = new ChatRoom();
-        LookupListener lookupListener = new LookupListener(LOOKUPPORT);
+        LookupListener lookupListener = new LookupListener(inetSocketAddress);
         new Thread(lookupListener).start();
 
         
