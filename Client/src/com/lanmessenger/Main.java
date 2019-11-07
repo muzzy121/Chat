@@ -3,14 +3,10 @@ package com.lanmessenger;
 import com.lanmessenger.messages.ScreenInput;
 import com.lanmessenger.thread.ChatRoom;
 import com.lanmessenger.thread.Chatable;
-import com.lanmessenger.thread.Listener;
 import com.lanmessenger.users.User;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
+
 
 public class Main {
     final static String HOST = "localhost";
