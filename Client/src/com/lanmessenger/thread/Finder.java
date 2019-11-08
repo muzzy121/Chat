@@ -42,10 +42,13 @@ public class Finder implements Runnable {
                     DatagramSocket datagramSocket = new DatagramSocket();
                     datagramSocket.setBroadcast(true);
 
-
                     DatagramPacket datagramPacket = new DatagramPacket(request, request.length, broadcastAddress, 7778);
                     datagramSocket.send(datagramPacket);
-                    System.out.println("Buffer sended!");
+
+
+
+                    InetAddress inetAddress = InetAddress.getByName("192.168.2.2");
+                    System.out.println(inetAddress.getClass());
                                             // TODO: 2019-11-08 NETWORK IS UNREACHABLE EXCEPITON catch
                     // ready to wait for response
 
@@ -80,7 +83,10 @@ public class Finder implements Runnable {
                     for (InterfaceAddress interfaceAddress :
                             networkInterface.getInterfaceAddresses()) {
                         InetAddress broadcast = interfaceAddress.getBroadcast();
+                   //     InetAddress broadcast = InetAddress.getByAddress(interfaceAddress.getBroadcast());
+
                         if (broadcast != null)
+                            System.out.println(broadcast.getClass());
                             this.broadcastAddresses.add(broadcast);
                     }
                 }
