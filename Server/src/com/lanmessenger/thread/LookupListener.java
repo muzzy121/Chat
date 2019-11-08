@@ -3,6 +3,7 @@ package com.lanmessenger.thread;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.Arrays;
 
 //Class for a socket Listener for broadcast pockets - used for check if server is available in the network
 public class LookupListener implements Runnable{
@@ -33,21 +34,21 @@ public class LookupListener implements Runnable{
             try {
                 System.out.println("Waiting for packet!");
                 datagramSocket.receive(toRecivePacket);
-                System.out.println("Recived pocket: " + toRecivePacket.getData());
-                System.out.println("Recived from: "+ toRecivePacket.getAddress().getHostAddress());
+
+                System.out.println("Recived from: "+ toRecivePacket.getAddress().getHostAddress() + ", " + toRecivePacket.getPort());
 
                 // TODO: 2019-11-07 See if I can catch broadcast packet!
                 // TODO: 2019-11-07 Check if packet is fine and send back packet
                 // TODO: 2019-11-07 In response send Servername!!!!
-
-                if (CODE.equals(toRecivePacket.getData().toString().trim())) {
+                String stringFromBytes = new String(toRecivePacket.getData()).trim();
+                if (CODE.equals(stringFromBytes)) {
                     System.out.println("Data comes from chat app!");
 
                                             // if someone will send proper broadcast datagram i need to send him info that im alive, info who am i, and my ipaddress, cause he dont know it yet!
 
-                    InetAddress clientAddress = toRecivePacket.getAddress();
+                    InetSocketAddress clientAddress = new InetSocketAddress(toRecivePacket.getAddress(), toRecivePacket.getPort());
                     byte[] request = "Server".getBytes();
-                    DatagramPacket toSendPacket = new DatagramPacket(request, request.length, clientAddress, 7778);
+                    DatagramPacket toSendPacket = new DatagramPacket(request, request.length, clientAddress);
                     datagramSocket.send(toSendPacket);
                 }
 

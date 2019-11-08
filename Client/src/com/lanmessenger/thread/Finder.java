@@ -28,14 +28,15 @@ public class Finder implements Runnable {
                 DatagramPacket datagramPacket = new DatagramPacket(request, request.length, broadcastAddress, 7778);
                 datagramSocket.send(datagramPacket);
                 System.out.println("Buffer sended!");
-
+                // TODO: 2019-11-08 NETWORK IS UNREACHABLE EXCEPITON catch
                 // ready to wait for response
 
                 // create new datagram to catch response
 
                 DatagramPacket toRecivePacket = new DatagramPacket(response, response.length);
-                datagramSocket.setSoTimeout(1000);
+                datagramSocket.setSoTimeout(5000);
                 datagramSocket.receive(toRecivePacket);
+                String message = new String(toRecivePacket.getData()).trim();
                 System.out.println("Recived response from : "+ toRecivePacket.getData().toString() + " from address: "+ toRecivePacket.getAddress().getHostAddress());
                 //stop();
 
