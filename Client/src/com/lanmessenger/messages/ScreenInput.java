@@ -1,11 +1,11 @@
 package com.lanmessenger.messages;
 
-import com.lanmessenger.thread.Chatable;
-import com.lanmessenger.thread.Finder;
-import com.lanmessenger.thread.Sendable;
-import com.lanmessenger.thread.Sender;
+import com.lanmessenger.thread.*;
 import com.lanmessenger.users.User;
 
+import java.net.InetAddress;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ScreenInput implements Runnable {
@@ -14,6 +14,7 @@ public class ScreenInput implements Runnable {
     private Chatable chatRoom;
     private Sendable sender;
     private User user;
+    private Finder finder;
 
 
     public ScreenInput(Chatable chatRoom, User user) {
@@ -58,9 +59,37 @@ public class ScreenInput implements Runnable {
                         break;
                     }
                     case "/connect":{
-                        chatRoom.connect();
-                        sendHello();
+
+                        ServerList serverList = new ServerList();
+                        finder = new Finder(serverList);
+                        synchronized (serverList) {
+                            new Thread(finder).start();
+                            try {
+                                serverList.wait();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            System.out.println("In Finder Thread: " + finder.getServerList().keySet());
+
+                            Map<String, InetAddress> server = finder.getServerList();
+
+                            if (server.isEmpty()) {
+                                int i = 1;
+                                server.forEach((String, InetAddress) -> System.out.println(i + ": " + String));
+
+//                                    System.out.println();
+
+
+                                // TODO: 2019-11-09 Learn how to iterate MAP or LIST
+                            }
+
+                            System.out.print("Choose server: ");
+
+//                            chatRoom.connect();
+//                            sendHello();
+                        }
                         break;
+
                     }
                     case "/end":
                         Messaging end = new End(user);
@@ -80,8 +109,9 @@ public class ScreenInput implements Runnable {
                         chatRoom.update();
                         break;
                     case "/search":
-                        Finder finder = new Finder();
-                        new Thread(finder).start();
+//                        finder = new Finder();
+//                        new Thread(finder).start();
+
                         break;
                     default:
                         System.out.println("Unknown command, use /help");
