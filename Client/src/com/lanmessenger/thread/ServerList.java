@@ -1,22 +1,18 @@
 package com.lanmessenger.thread;
 
 import java.net.InetAddress;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServerList {
-    private Map<String, InetAddress> serverList = new HashMap<>();
+    private List<InetAddress> serverList = new ArrayList<>();
 
-    public Map<String, InetAddress> getServerList() {
+
+    public List<InetAddress> getServerList() {
         return serverList;
     }
 
-    public ServerList setServerList(Map<String, InetAddress> serverList) {
-        this.serverList = serverList;
-        return this;
-    }
-
-    public void put(String string, InetAddress inetAddress) {
-        serverList.put(string,inetAddress);
+    public void add(InetAddress inetAddress) {
+        serverList.add(inetAddress);
     }
 }
