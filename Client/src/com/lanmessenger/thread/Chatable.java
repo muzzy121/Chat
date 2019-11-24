@@ -3,6 +3,7 @@ package com.lanmessenger.thread;
 import com.lanmessenger.messages.Messaging;
 import com.lanmessenger.users.User;
 
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface Chatable {
 
     void addMessage(Messaging message);
 
-    void connect();
+    void connect(InetAddress inetAddress);
 
     User getUser();
 

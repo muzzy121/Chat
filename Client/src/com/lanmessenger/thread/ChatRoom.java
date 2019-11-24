@@ -6,7 +6,10 @@ import com.lanmessenger.messages.Messaging;
 import com.lanmessenger.users.User;
 import com.sun.istack.internal.NotNull;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -31,14 +34,16 @@ public class ChatRoom implements Chatable {
         return this;
     }
 
-    public void connect() {
+    @Override
+    public void connect(InetAddress inetAddress) {
         try {
+            InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress, Main.PORT);
             //System.out.println(Main.serverAddress);
             if (socket.isClosed()) {
                 this.socket = new Socket();
             }
             if (!socket.isConnected() || socket.isClosed()) {
-                socket.connect(Main.serverAddress);
+                socket.connect(inetSocketAddress);
                 System.out.println("Connected to: " + socket.getInetAddress().getHostName());
                 Listener listener = new Listener(socket, this);
                 new Thread(listener).start();
@@ -47,7 +52,7 @@ public class ChatRoom implements Chatable {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Unable to connect to " + Main.serverAddress.getHostName());
+            System.out.println("Unable to connect to " + inetAddress.getHostName());
         }
     }
 
