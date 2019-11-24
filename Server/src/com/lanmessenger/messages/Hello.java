@@ -8,6 +8,10 @@ import java.util.Collection;
 
 public class Hello extends Command {
 
+    public Hello(User user) {
+        super(user);
+    }
+
     @Override
     public void phrase(Listener listener) {
         User user = getUser();
@@ -20,8 +24,6 @@ public class Hello extends Command {
                     Sendable sender = new Sender(chatRoom, socket, user);
                     chatRoom.addObserver(user, sender);
                 } else {
-//                    System.out.println(u.getUsername());
-//                    System.out.println(getUser().getUsername());
                     System.out.println("User already exist!");
                     return;
                 }
@@ -31,15 +33,6 @@ public class Hello extends Command {
             chatRoom.addObserver(user, sender);
             System.out.println("New user connected: " + user.getUsername());
         }
-    }
-
-    @Override
-    public Collection<Sendable> getUsersToSend(User user, Chatable chatRoom) {
-        return null;
-    }
-
-    public Hello(User user) {
-        super(user);
     }
 }
 

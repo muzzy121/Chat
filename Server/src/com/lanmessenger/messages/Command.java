@@ -5,7 +5,6 @@ import com.lanmessenger.users.User;
 import java.io.Serializable;
 
 public abstract class Command implements Messaging, Serializable {
-    //    public String type;
     public User user;
 
     public Command(User user){

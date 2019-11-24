@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.Optional;
 
 
 public class Listener implements Runnable, Listenable {
@@ -35,13 +36,13 @@ public class Listener implements Runnable, Listenable {
         return this.chatRoom;
     }
 
-    public Messaging Listen() {
+    public Optional<Messaging> Listen() {
         try {
                 if (!socket.isClosed()) {
                 inputStream = socket.getInputStream();
                 ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
                 Object object = objectInputStream.readObject();
-                return (Messaging) object;
+                return (Optional<Messaging>)object;
             }
         } catch (IOException e) {
             System.out.println("");
@@ -60,17 +61,16 @@ public class Listener implements Runnable, Listenable {
     public void run() {
         while (isStart) {
 //            System.out.println("Waiting for data...");
-            pocket = Listen();
-            try {
-            if(!pocket.equals(null)) {                              // TODO: 2019-10-30 Question to Pawel - where to check if null ?! For now checked in exception works well
-                System.out.println(pocket.getClass());
-                pocket.phrase(this);
+
+            Optional<Messaging> pocket = Listen();
+
+            if(pocket.isPresent()) {
+                if (!pocket.equals(null)) {
+                    System.out.println(pocket.getClass());
+                    pocket.get().phrase(this);
+                }
             }
             if(socket.isClosed()) { stop();}
-
-            } catch (NullPointerException npe) {
-                stop();
-            }
         }
 
     }

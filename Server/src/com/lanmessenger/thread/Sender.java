@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Collection;
 
-public class Sender implements Sendable{
+public class Sender implements Sendable {
     private Chatable chatRoom;
     private Socket socket;
     private User user;
@@ -35,8 +35,8 @@ public class Sender implements Sendable{
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(message);
             objectOutputStream.flush();
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
+            System.out.println("Can't send a message");
             e.printStackTrace();
         }
     }
@@ -44,11 +44,9 @@ public class Sender implements Sendable{
     @Override
     public void update() {
         for (Messaging pocket : chatRoom.getMessageToSend()) {
-            if(!pocket.getUser().equals(this.user)){
+            if (!pocket.getUser().equals(this.user)) {
                 send(pocket);
             }
         }
-
-
     }
 }

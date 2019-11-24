@@ -1,21 +1,17 @@
 package com.lanmessenger.messages;
 
-import com.lanmessenger.thread.Chatable;
 import com.lanmessenger.thread.Listener;
-import com.lanmessenger.thread.Sendable;
 import com.lanmessenger.users.User;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Collection;
 
-public class Bye implements Messaging, Serializable{
-    private User user;
+// TODO: 2019-11-23 Change implementation on Client side
+public class Bye extends Command implements Serializable{
 
     public Bye(User user) {
-        this.user = user;
+        super(user);
     }
-
 
     @Override
     public void phrase(Listener listener) {
@@ -23,24 +19,8 @@ public class Bye implements Messaging, Serializable{
             listener.getSocket().close();
 
         } catch (IOException e) {
-            System.out.println("Pipa");
-//            e.printStackTrace();
+            System.out.println("Can't close socket");
         }
-    }
-
-    @Override
-    public void printMessage() {
-
-    }
-
-    @Override
-    public User getUser() {
-        return null;
-    }
-
-    @Override
-    public Collection<Sendable> getUsersToSend(User user, Chatable chatRoom) {
-        return null;
     }
 
 }
