@@ -9,7 +9,9 @@ import java.net.InetSocketAddress;
 
 
 public class Main {
-    final static String HOST = "localhost";
+//    final static String HOST = "localhost";
+    final static String HOST = "192.168.0.46";
+
     final static int PORT = 7777;
     public final static InetSocketAddress serverAddress = new InetSocketAddress(HOST,PORT);
 
